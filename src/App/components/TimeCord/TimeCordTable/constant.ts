@@ -1,0 +1,45 @@
+export const trColor = {
+  weekday: '#fff',
+  saturday: '#B4DCFF',
+  sunday: '#F5C8C8',
+  holiday: '#F5C8C8',
+}
+
+export const kindsOptions = [
+  { value: '0', text: '- -' },
+  { value: '4', text: '振替休' },
+  { value: '5', text: '午前振休' },
+  { value: '6', text: '午後振休' },
+  { value: '19', text: '有給1h' },
+  { value: '20', text: '有給2h' },
+  { value: '21', text: '有給3h' },
+  { value: '22', text: '有給4h' },
+  { value: '23', text: '有給5h' },
+  { value: '24', text: '有給6h' },
+  { value: '25', text: '有給7h' },
+  { value: '1', text: '有給全休' },
+  { value: '26', text: '夏季休暇' },
+  { value: '27', text: '冬期休暇' },
+  { value: '7', text: '特別休' },
+  { value: '8', text: '欠勤' },
+  { value: '9', text: '遅刻' },
+  { value: '10', text: '早退' },
+  { value: '12', text: '休日出勤' },
+  { value: '16', text: '所定休日' },
+  { value: '17', text: '法定休日' },
+  { value: '18', text: '遅刻/早退' },
+  { value: '28', text: '忌引き' },
+  { value: '11', text: 'その他' },
+]
+
+export const reasonOptions = [
+  { value: '0', text: '- -' },
+  { value: '1', text: '私用' },
+  { value: '6', text: '交通遅延' },
+  { value: '2', text: '体調不良' },
+  { value: '3', text: '自社用' },
+  { value: '4', text: '帰社日' },
+  { value: '5', text: '災害' },
+  { value: '7', text: '現場面談' },
+  { value: '8', text: '現場面談' },
+]
