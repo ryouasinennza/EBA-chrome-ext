@@ -1,5 +1,24 @@
 import * as ReactDOM from 'react-dom'
 import { App } from './App'
+import {
+  getAbsenceContact,
+  getBasicTime,
+  getBreakdown,
+  getCustomData,
+  getDays,
+  getElementLinks,
+  getHollowTime,
+  getKinds,
+  getOverTime,
+  getReason,
+  getRemarks,
+  getTotalDaysData,
+  getTotalTime,
+  getTotalTimesData,
+  getUserData,
+  getWorkStyle,
+  getWorkTimes,
+} from './App/dataExtraction'
 
 const changeDisplayButton = document.createElement('button')
 changeDisplayButton.style.position = 'fixed'
@@ -25,6 +44,46 @@ window.onload = () => {
     })
     body.appendChild(react)
     body.appendChild(changeDisplayButton)
-    ReactDOM.render(<App />, react)
+
+    const headerProps = {
+      headerLinks: getElementLinks('header a'),
+      sidebarLinks: getElementLinks('.sidebar-menu a'),
+      user: getUserData(),
+    }
+
+    const date: HTMLInputElement = document.querySelector('input[name="time_card_year_month"]')
+    const tbody = document.querySelector('#time_card table.timecard_table > tbody')
+    const trElements: HTMLTableRowElement[] = Array.from(tbody.querySelectorAll('tr'))
+    const bodyData = trElements.map((tr) => {
+      const tds = Array.from(tr.querySelectorAll('td'))
+      return {
+        days: getDays(tds),
+        customerWork: getWorkTimes(tds, 1, 4),
+        mainOfficeWork: getWorkTimes(tds, 4, 7),
+        hollow: getHollowTime(tds, 7, 9),
+        breakdown: getBreakdown(tds),
+        total: getTotalTime(tds),
+        overTime: getOverTime(tds),
+        kinds: getKinds(tds),
+        reason: getReason(tds),
+        absenceContact: getAbsenceContact(tds),
+        workStyle: getWorkStyle(tds),
+        remarks: getRemarks(tds),
+        error: false,
+      }
+    })
+
+    const timeCardProps = {
+      basicTime: getBasicTime(),
+      bodyData,
+      date: date.value,
+      totalDaysData: getTotalDaysData(),
+      totalTimesData: getTotalTimesData(),
+      customData: getCustomData(bodyData),
+    }
+
+    document.body.style.position = 'relative'
+
+    ReactDOM.render(<App headerProps={headerProps} timeCardProps={timeCardProps} />, react)
   }
 }

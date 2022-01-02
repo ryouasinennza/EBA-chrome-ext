@@ -1,27 +1,30 @@
 import { VFC } from 'react'
 import styled from 'styled-components'
 
-type HeaderProps = {
-  name: string
-  belongs: string
-  memberNo: string
+export type HeaderProps = {
   headerLinks: {
-    link: string
     text: string
+    link: string
   }[]
   sidebarLinks: {
-    link: string
     text: string
+    link: string
   }[]
+  user: {
+    name: string
+    belongs: string
+    uniqueId: string
+    memberNo: string
+  }
 }
 
-export const Header: VFC<HeaderProps> = ({ name, belongs, memberNo, headerLinks, sidebarLinks }) => {
+export const Header: VFC<HeaderProps> = ({ user, headerLinks, sidebarLinks }) => {
   return (
     <HeaderBox>
       <UserData>
-        <div>名前:{name}</div>
-        <div>チーム:{belongs}</div>
-        <div>アカウントNo:{memberNo}</div>
+        <div>名前:{user.name}</div>
+        <div>チーム:{user.belongs}</div>
+        <div>アカウントNo:{user.memberNo}</div>
       </UserData>
       <UlWrap>
         <News>

@@ -1,7 +1,8 @@
 import { ThemeProvider } from 'styled-components'
-import { useLayoutEffect, VFC } from 'react'
+import { VFC } from 'react'
 import styled from 'styled-components'
 import {
+  TimeCardState,
   useChangeBasicTime,
   useChangeSelector,
   useChangeText,
@@ -9,18 +10,20 @@ import {
   useCheckBasicTimeHours,
   useCheckBasicTimeMinutes,
   useCheckState,
-  useHeaderState,
   useHollowChangeTime,
   useSetBasicTime,
   useTimeCardState,
 } from './hooks'
-import { Header, TimeCord } from './components'
+import { Header, HeaderProps, TimeCord } from './components'
 import { theme } from './styles/theme'
 
-export const App: VFC = () => {
-  const [headerState] = useHeaderState()
-  const { headerLinks, user, sidebarLinks } = headerState
-  const [timeCardState, setTimeCardState] = useTimeCardState()
+type AppProps = {
+  headerProps: HeaderProps
+  timeCardProps: TimeCardState
+}
+
+export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
+  const [timeCardState, setTimeCardState] = useTimeCardState(timeCardProps)
 
   const onChangeTime = useChangeTime(setTimeCardState)
   const onHollowChangeTime = useHollowChangeTime(setTimeCardState)
@@ -32,10 +35,6 @@ export const App: VFC = () => {
   const checkBasicTimeMinutes = useCheckBasicTimeMinutes(setTimeCardState)
   const setBasicTime = useSetBasicTime(setTimeCardState)
 
-  useLayoutEffect(() => {
-    document.body.style.position = 'relative'
-  }, [])
-
   const changeDate = (e) => {
     setTimeCardState((prev) => {
       return {
@@ -44,8 +43,9 @@ export const App: VFC = () => {
       }
     })
   }
+
   const clickCustomerMode = () => {
-    window.location.href = `submit_customer?member_no=${user.memberNo}&amp;time_card_year_month=${timeCardState.date}`
+    window.location.href = `submit_customer?member_no=${headerProps.user.memberNo}&amp;time_card_year_month=${timeCardState.date}`
   }
 
   const onSubmit = (e) => {
@@ -63,7 +63,7 @@ export const App: VFC = () => {
   return (
     <Wrap>
       <ThemeProvider theme={theme}>
-        <Header headerLinks={headerLinks} sidebarLinks={sidebarLinks} {...user} />
+        <Header {...headerProps} />
         <TimeCord
           changeBasicTime={changeBasicTime}
           changeDate={changeDate}
@@ -77,7 +77,7 @@ export const App: VFC = () => {
           onHollowChangeTime={onHollowChangeTime}
           onSubmit={onSubmit}
           setBasicTime={setBasicTime}
-          {...user}
+          {...headerProps.user}
           {...timeCardState}
         />
       </ThemeProvider>

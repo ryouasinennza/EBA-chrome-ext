@@ -1,4 +1,3 @@
-import { HollowTime, WorkTimes } from './getWorkTimes'
 import { BodyData } from '../hooks'
 
 export const timeCalc = (hours: string, minutes: string): string => {
@@ -24,14 +23,14 @@ export const minutesRound = (minutes: string) => {
   return result === 6 ? '00' : `${result}0`
 }
 
-const sumTimeCalc = (object: WorkTimes) => {
+const sumTimeCalc = (object) => {
   const timeOfArrival = Number(object.timeOfArrivalCalcValue)
   const leaveTime = Number(object.leaveTimeCalcValue)
   const breakTime = Number(object.breakTimeCalcValue)
   return leaveTime - timeOfArrival - breakTime
 }
 
-const sumHollowTimeCalc = (object: HollowTime) => {
+const sumHollowTimeCalc = (object) => {
   const goingOutTime = Number(object.goingOutTimeCalcValue)
   const returnTime = Number(object.returnTimeCalcValue)
   return returnTime - goingOutTime
@@ -56,7 +55,7 @@ export const sumTime = (object) => {
   return makeTimeText(total)
 }
 
-export const sumTotalTime = (object1: WorkTimes, object2: WorkTimes, object3: HollowTime) => {
+export const sumTotalTime = (object1, object2, object3) => {
   const object1Total = sumTimeCalc(object1)
   const object2Total = sumTimeCalc(object2)
   const object3Total = sumHollowTimeCalc(object3)
