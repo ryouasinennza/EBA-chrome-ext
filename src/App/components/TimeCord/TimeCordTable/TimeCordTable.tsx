@@ -1,19 +1,28 @@
 import styled from 'styled-components'
 import { TableHeader } from './TableHeader'
-import { TableBody } from './TableBody'
-import { Dispatch, SetStateAction, VFC } from 'react'
-import { BodyData, TimeCardState } from '../../../hooks'
+import { TableBody, TableBodyProps } from './TableBody'
+import { VFC } from 'react'
 
-export type TimeCordTableProps = {
-  bodyData: BodyData
-  setTimeCardState: Dispatch<SetStateAction<TimeCardState>>
-}
-
-export const TimeCordTable: VFC<TimeCordTableProps> = ({ bodyData, setTimeCardState }) => {
+export type TimeCordTableProps = TableBodyProps
+export const TimeCordTable: VFC<TimeCordTableProps> = ({
+  bodyData,
+  onChangeTime,
+  onHollowChangeTime,
+  onCheckState,
+  onChangeSelector,
+  onChangeText,
+}) => {
   return (
     <Table>
       <TableHeader />
-      <TableBody setTimeCardState={setTimeCardState} bodyData={bodyData} />
+      <TableBody
+        bodyData={bodyData}
+        onChangeTime={onChangeTime}
+        onHollowChangeTime={onHollowChangeTime}
+        onCheckState={onCheckState}
+        onChangeSelector={onChangeSelector}
+        onChangeText={onChangeText}
+      />
     </Table>
   )
 }

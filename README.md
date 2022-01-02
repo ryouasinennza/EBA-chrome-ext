@@ -1,2 +1,7 @@
-npm install --save-dev webpack webpack-cli prettier typescript ts-loader
-＃EBA-chrome-ext
+- v16.13.0
+- npm ci
+- npm run build
+- chrome://extensions/
+- デベロッパー モード -> on
+- パッケージ課されていない拡張機能を読み込む
+- dist配下を読み込む

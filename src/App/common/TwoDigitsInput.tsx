@@ -9,7 +9,13 @@ type InputProps = {
 }
 
 const Input = styled('input')<InputProps>`
-  width: 24px;
-  color: ${({ isError }) => (isError ? '#fff' : '#000')};
-  background-color: ${({ isError }) => (isError ? 'red' : 'transparent')};
+  width: 28px;
+  color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme, isError }) => (isError ? 'red' : theme.primaryBGColor)};
+  outline: none;
+  border: none;
+  font-size: 20px;
+  height: 27px;
+  padding: 0;
+  text-align: center;
 `

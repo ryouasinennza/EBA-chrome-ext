@@ -1,137 +1,44 @@
-import { Dispatch, SetStateAction, VFC } from 'react'
+import { VFC } from 'react'
 import styled from 'styled-components'
-import { Tr, Th, Td, TwoDigitsInput } from '../../../common'
-import { BasicTime } from '../../../hooks/util'
-import { TimeCardState } from '../../../hooks'
-import { timeCalc, checkHours, minutesRound } from '../util'
+import { Tr, Th, Td, TwoDigitsInput, Coron, Thead, NonHoverTr } from '../../../common'
+
+type BasicTime = {
+  basicTimeStartHoursValue: string
+  basicTimeStartMinutesValue: string
+  basicTimeEndHoursValue: string
+  basicTimeEndMinutesValue: string
+  basicTimeBreakHoursValue: string
+  basicTimeBreakMinutesValue: string
+  workType: string
+  error: boolean
+}
 
 export type BasicTimeBoxProps = {
   basicTime: BasicTime
-  setTimeCardState: Dispatch<SetStateAction<TimeCardState>>
+  changeBasicTime: (e) => void
+  checkBasicTimeHours: () => void
+  checkBasicTimeMinutes: () => void
+  setBasicTime: (e) => void
 }
 
-export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({ basicTime, setTimeCardState }) => {
-  const changeBasicTime = (e) => {
-    setTimeCardState((prev) => {
-      return {
-        ...prev,
-        basicTime: {
-          ...prev.basicTime,
-          [e.target.dataset.input]: e.target.value,
-        },
-      }
-    })
-  }
-
-  const onBlurHours = (e) => {
-    setTimeCardState((prev) => {
-      if (
-        checkHours(prev.basicTime.basicTimeStartHoursValue) &&
-        checkHours(prev.basicTime.basicTimeEndHoursValue) &&
-        checkHours(prev.basicTime.basicTimeBreakHoursValue)
-      ) {
-        return {
-          ...prev,
-          basicTime: {
-            ...prev.basicTime,
-            error: false,
-          },
-        }
-      } else {
-        return {
-          ...prev,
-          basicTime: {
-            ...prev.basicTime,
-            error: true,
-          },
-        }
-      }
-    })
-  }
-
-  const onBlurMinutes = (e) => {
-    setTimeCardState((prev) => {
-      try {
-        return {
-          ...prev,
-          basicTime: {
-            ...prev.basicTime,
-            basicTimeStartMinutesValue: minutesRound(prev.basicTime.basicTimeStartMinutesValue),
-            basicTimeEndMinutesValue: minutesRound(prev.basicTime.basicTimeEndMinutesValue),
-            basicTimeBreakMinutesValue: minutesRound(prev.basicTime.basicTimeBreakMinutesValue),
-            error: false,
-          },
-        }
-      } catch (e) {
-        return {
-          ...prev,
-          basicTime: {
-            ...prev.basicTime,
-            error: true,
-          },
-        }
-      }
-    })
-  }
-
-  const setBasicTime = (e) => {
-    e.preventDefault()
-    if (!basicTime.error) {
-      if (window.confirm('基本時刻をセットします')) {
-        setTimeCardState((prev) => {
-          const newBodyData = prev.bodyData.map((object) => {
-            if (object.days.dayType === 'weekday') {
-              return {
-                ...object,
-                customerWork: {
-                  ...object.customerWork,
-                  timeOfArrivalHoursValue: basicTime.basicTimeStartHoursValue,
-                  timeOfArrivalMinutesValue: basicTime.basicTimeStartMinutesValue,
-                  timeOfArrivalCalcValue: timeCalc(
-                    basicTime.basicTimeStartHoursValue,
-                    basicTime.basicTimeStartMinutesValue
-                  ),
-                  leaveTimeHoursValue: basicTime.basicTimeEndHoursValue,
-                  leaveTimeMinutesValue: basicTime.basicTimeEndMinutesValue,
-                  leaveTimeCalcValue: timeCalc(basicTime.basicTimeEndHoursValue, basicTime.basicTimeEndMinutesValue),
-                  breakTimeHoursValue: basicTime.basicTimeBreakHoursValue,
-                  breakTimeMinutesValue: basicTime.basicTimeBreakMinutesValue,
-                  breakTimeCalcValue: timeCalc(
-                    basicTime.basicTimeBreakHoursValue,
-                    basicTime.basicTimeBreakMinutesValue
-                  ),
-                },
-                workStyle: {
-                  ...object.workStyle,
-                  selectedValue: basicTime.workType,
-                },
-              }
-            } else {
-              return object
-            }
-          })
-
-          return {
-            ...prev,
-            bodyData: newBodyData,
-          }
-        })
-      }
-    } else {
-      window.alert('エラーを修正してください')
-    }
-  }
+export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({
+  basicTime,
+  changeBasicTime,
+  checkBasicTimeHours,
+  checkBasicTimeMinutes,
+  setBasicTime,
+}) => {
   return (
     <Box>
-      <table>
-        <thead>
-          <Tr>
+      <Table>
+        <Thead>
+          <NonHoverTr>
             <Th>就業開始時刻</Th>
             <Th>就業終了時刻</Th>
             <Th>基準休憩時間</Th>
             <Th>勤務形態</Th>
-          </Tr>
-        </thead>
+          </NonHoverTr>
+        </Thead>
         <tbody>
           <Tr>
             <Td>
@@ -140,16 +47,16 @@ export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({ basicTime, setTimeCardSta
                 data-input="basicTimeStartHoursValue"
                 value={basicTime.basicTimeStartHoursValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurHours}
+                onBlur={checkBasicTimeHours}
                 isError={basicTime.error}
               />
-              ：
+              <Coron />
               <TwoDigitsInput
                 name="time_card_work_start_1"
                 data-input="basicTimeStartMinutesValue"
                 value={basicTime.basicTimeStartMinutesValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurMinutes}
+                onBlur={checkBasicTimeMinutes}
                 isError={basicTime.error}
               />
             </Td>
@@ -159,16 +66,16 @@ export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({ basicTime, setTimeCardSta
                 data-input="basicTimeEndHoursValue"
                 value={basicTime.basicTimeEndHoursValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurHours}
+                onBlur={checkBasicTimeMinutes}
                 isError={basicTime.error}
               />
-              ：
+              <Coron />
               <TwoDigitsInput
                 name="time_card_work_end_1"
                 data-input="basicTimeEndMinutesValue"
                 value={basicTime.basicTimeEndMinutesValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurMinutes}
+                onBlur={checkBasicTimeMinutes}
                 isError={basicTime.error}
               />
             </Td>
@@ -178,21 +85,21 @@ export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({ basicTime, setTimeCardSta
                 data-input="basicTimeBreakHoursValue"
                 value={basicTime.basicTimeBreakHoursValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurHours}
+                onBlur={checkBasicTimeHours}
                 isError={basicTime.error}
               />
-              ：
+              <Coron />
               <TwoDigitsInput
                 name="time_card_rest_time_1"
                 data-input="basicTimeBreakMinutesValue"
                 value={basicTime.basicTimeBreakMinutesValue}
                 onChange={changeBasicTime}
-                onBlur={onBlurMinutes}
+                onBlur={checkBasicTimeMinutes}
                 isError={basicTime.error}
               />
             </Td>
             <Td>
-              <select
+              <Select
                 name="time_card_work_type"
                 data-input="workType"
                 value={basicTime.workType}
@@ -200,15 +107,21 @@ export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({ basicTime, setTimeCardSta
               >
                 <option value="1">出社</option>
                 <option value="2">在宅</option>
-              </select>
+              </Select>
             </Td>
           </Tr>
         </tbody>
-      </table>
+      </Table>
       <SetBasicTimeButton onClick={setBasicTime}>基本時刻セット</SetBasicTimeButton>
     </Box>
   )
 }
+const Table = styled('table')`
+  color: ${({ theme }) => theme.textColor};
+  & * {
+    border-color: ${({ theme }) => theme.borderColor};
+  }
+`
 
 const Box = styled('div')`
   margin: 8px 0;
@@ -217,9 +130,12 @@ const Box = styled('div')`
 
 const SetBasicTimeButton = styled('button')`
   margin: 0 8px;
-  background-color: red;
-  color: #fff;
+  background-color: ${({ theme }) => theme.setBasicTimeButtonBGColor};
+  color: ${({ theme }) => theme.buttonTextColor};
   outline: none;
-  border: 1px solid #000;
-  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
+`
+const Select = styled('select')`
+  border-radius: ${({ theme }) => theme.borderRadius};
 `

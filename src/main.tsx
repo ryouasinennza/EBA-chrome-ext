@@ -1,5 +1,6 @@
 import * as ReactDOM from 'react-dom'
 import { App } from './App'
+
 const changeDisplayButton = document.createElement('button')
 changeDisplayButton.style.position = 'fixed'
 changeDisplayButton.style.top = '8px'

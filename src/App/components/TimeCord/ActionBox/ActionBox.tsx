@@ -26,7 +26,7 @@ export const ActionBox: VFC<ActionBoxProps> = ({ changeDate, clickCustomerMode, 
 const Box = styled('div')`
   display: flex;
   padding-bottom: 8px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `
 
 const ButtonBase = styled('button')`
@@ -34,9 +34,9 @@ const ButtonBase = styled('button')`
   padding: 4px;
   margin: 4px;
   outline: none;
-  border-radius: 4px;
-  border: 1px solid black;
-  color: #fff;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  color: ${({ theme }) => theme.buttonTextColor};
   justify-content: center;
   align-items: center;
   &:hover {

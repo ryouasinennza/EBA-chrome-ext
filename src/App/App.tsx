@@ -1,12 +1,36 @@
+import { ThemeProvider } from 'styled-components'
 import { useLayoutEffect, VFC } from 'react'
 import styled from 'styled-components'
-import { useHeaderState, useTimeCardState } from './hooks'
+import {
+  useChangeBasicTime,
+  useChangeSelector,
+  useChangeText,
+  useChangeTime,
+  useCheckBasicTimeHours,
+  useCheckBasicTimeMinutes,
+  useCheckState,
+  useHeaderState,
+  useHollowChangeTime,
+  useSetBasicTime,
+  useTimeCardState,
+} from './hooks'
 import { Header, TimeCord } from './components'
+import { theme } from './styles/theme'
 
 export const App: VFC = () => {
   const [headerState] = useHeaderState()
   const { headerLinks, user, sidebarLinks } = headerState
   const [timeCardState, setTimeCardState] = useTimeCardState()
+
+  const onChangeTime = useChangeTime(setTimeCardState)
+  const onHollowChangeTime = useHollowChangeTime(setTimeCardState)
+  const onCheckState = useCheckState(setTimeCardState)
+  const onChangeSelector = useChangeSelector(setTimeCardState)
+  const onChangeText = useChangeText(setTimeCardState)
+  const changeBasicTime = useChangeBasicTime(setTimeCardState)
+  const checkBasicTimeHours = useCheckBasicTimeHours(setTimeCardState)
+  const checkBasicTimeMinutes = useCheckBasicTimeMinutes(setTimeCardState)
+  const setBasicTime = useSetBasicTime(setTimeCardState)
 
   useLayoutEffect(() => {
     document.body.style.position = 'relative'
@@ -25,47 +49,44 @@ export const App: VFC = () => {
   }
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    const inputs: HTMLInputElement[] = Array.from(e.target.querySelectorAll('input'))
-    const names = inputs
-      .filter((input) => {
-        return !!input?.name
-      })
-      .map((nameInput) => {
-        return nameInput.name
-      })
-      .sort()
-    console.log(JSON.stringify(names))
+    if (timeCardState.bodyData.every(({ error }) => !error)) {
+      if (window.confirm('変更を保存しますか？')) {
+        return true
+      } else {
+        e.preventDefault()
+      }
+    }
   }
 
   if (!timeCardState.bodyData.length) return null
-  console.log(timeCardState)
+
   return (
     <Wrap>
-      <Header
-        name={user.name}
-        belongs={user.belongs}
-        memberNo={user.memberNo}
-        headerLinks={headerLinks}
-        sidebarLinks={sidebarLinks}
-      />
-      <TimeCord
-        basicTime={timeCardState.basicTime}
-        bodyData={timeCardState.bodyData}
-        changeDate={changeDate}
-        clickCustomerMode={clickCustomerMode}
-        date={timeCardState.date}
-        memberNo={user.memberNo}
-        onSubmit={onSubmit}
-        uniqueId={user.uniqueId}
-        setTimeCardState={setTimeCardState}
-      />
+      <ThemeProvider theme={theme}>
+        <Header headerLinks={headerLinks} sidebarLinks={sidebarLinks} {...user} />
+        <TimeCord
+          changeBasicTime={changeBasicTime}
+          changeDate={changeDate}
+          checkBasicTimeHours={checkBasicTimeHours}
+          checkBasicTimeMinutes={checkBasicTimeMinutes}
+          clickCustomerMode={clickCustomerMode}
+          onChangeSelector={onChangeSelector}
+          onChangeText={onChangeText}
+          onChangeTime={onChangeTime}
+          onCheckState={onCheckState}
+          onHollowChangeTime={onHollowChangeTime}
+          onSubmit={onSubmit}
+          setBasicTime={setBasicTime}
+          {...user}
+          {...timeCardState}
+        />
+      </ThemeProvider>
     </Wrap>
   )
 }
 
 const Wrap = styled('div')`
-  background-color: #fff;
+  background-color: rgb(209 209 209);
   position: absolute;
   width: 100vw;
   top: 0;

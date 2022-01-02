@@ -1,19 +1,25 @@
-import { Dispatch, SetStateAction, VFC } from 'react'
-import { BodyData, TimeCardState } from '../../../hooks'
-import { InputTypeHidden, Td, Tr, TwoDigitsInput } from '../../../common'
-import { kindsOptions, reasonOptions, trColor } from './constant'
-import { useChangeTime, useHollowChangeTime, useCheckState } from './hooks'
+import { VFC } from 'react'
+import { BodyData } from '../../../hooks'
+import { InputTypeHidden, Td, Tr, TwoDigitsInput, Coron } from '../../../common'
+import { kindsOptions, reasonOptions } from './constant'
 
 export type TableBodyProps = {
-  setTimeCardState: Dispatch<SetStateAction<TimeCardState>>
+  onChangeTime: (e) => void
+  onHollowChangeTime: (e) => void
+  onCheckState: () => void
+  onChangeSelector: (e) => void
+  onChangeText: (e) => void
   bodyData: BodyData
 }
 
-export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) => {
-  const onChangeTime = useChangeTime(setTimeCardState)
-  const onHollowChangeTime = useHollowChangeTime(setTimeCardState)
-  const onCheckState = useCheckState(setTimeCardState)
-
+export const TableBody: VFC<TableBodyProps> = ({
+  bodyData,
+  onChangeTime,
+  onHollowChangeTime,
+  onCheckState,
+  onChangeSelector,
+  onChangeText,
+}) => {
   return (
     <tbody>
       {bodyData.map(
@@ -36,7 +42,7 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
           index
         ) => {
           return (
-            <Tr key={`${days.text}-${index}`} BGColor={error ? 'red' : trColor[days.dayType]}>
+            <Tr key={`${days.text}-${index}`} BGColor={error ? 'error' : days.dayType}>
               {/*日付*/}
               <Td>
                 {days.text}
@@ -47,14 +53,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={customerWork.timeOfArrivalHoursName}
                   value={customerWork.timeOfArrivalHoursValue}
-                  onChange={onChangeTime('customerWork', index, 'timeOfArrival', 'hours')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="timeOfArrival"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={customerWork.timeOfArrivalMinutesName}
                   value={customerWork.timeOfArrivalMinutesValue}
-                  onChange={onChangeTime('customerWork', index, 'timeOfArrival', 'minutes')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="timeOfArrival"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden
@@ -66,14 +80,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={customerWork.leaveTimeHoursName}
                   value={customerWork.leaveTimeHoursValue}
-                  onChange={onChangeTime('customerWork', index, 'leaveTime', 'hours')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="leaveTime"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={customerWork.leaveTimeMinutesName}
                   value={customerWork.leaveTimeMinutesValue}
-                  onChange={onChangeTime('customerWork', index, 'leaveTime', 'minutes')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="leaveTime"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={customerWork.leaveTimeCalcName} value={customerWork.leaveTimeCalcValue} />
@@ -82,14 +104,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={customerWork.breakTimeHoursName}
                   value={customerWork.breakTimeHoursValue}
-                  onChange={onChangeTime('customerWork', index, 'breakTime', 'hours')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="breakTime"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={customerWork.breakTimeMinutesName}
                   value={customerWork.breakTimeMinutesValue}
-                  onChange={onChangeTime('customerWork', index, 'breakTime', 'minutes')}
+                  data-prop-name="customerWork"
+                  data-target-index={index}
+                  data-time-type="breakTime"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={customerWork.breakTimeCalcName} value={customerWork.breakTimeCalcValue} />
@@ -99,14 +129,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={mainOfficeWork.timeOfArrivalHoursName}
                   value={mainOfficeWork.timeOfArrivalHoursValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'timeOfArrival', 'hours')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="timeOfArrival"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={mainOfficeWork.timeOfArrivalMinutesName}
                   value={mainOfficeWork.timeOfArrivalMinutesValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'timeOfArrival', 'minutes')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="timeOfArrival"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden
@@ -118,14 +156,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={mainOfficeWork.leaveTimeHoursName}
                   value={mainOfficeWork.leaveTimeHoursValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'leaveTime', 'hours')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="leaveTime"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={mainOfficeWork.leaveTimeMinutesName}
                   value={mainOfficeWork.leaveTimeMinutesValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'leaveTime', 'minutes')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="leaveTime"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={mainOfficeWork.leaveTimeCalcName} value={mainOfficeWork.leaveTimeCalcValue} />
@@ -134,14 +180,22 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={mainOfficeWork.breakTimeHoursName}
                   value={mainOfficeWork.breakTimeHoursValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'breakTime', 'hours')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="breakTime"
+                  data-input-type="hours"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={mainOfficeWork.breakTimeMinutesName}
                   value={mainOfficeWork.breakTimeMinutesValue}
-                  onChange={onChangeTime('mainOfficeWork', index, 'breakTime', 'minutes')}
+                  data-prop-name="mainOfficeWork"
+                  data-target-index={index}
+                  data-time-type="breakTime"
+                  data-input-type="minutes"
+                  onChange={onChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={mainOfficeWork.breakTimeCalcName} value={mainOfficeWork.breakTimeCalcValue} />
@@ -151,14 +205,20 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={hollow.goingOutTimeHoursName}
                   value={hollow.goingOutTimeHoursValue}
-                  onChange={onHollowChangeTime(index, 'goingOutTime', 'hours')}
+                  data-target-index={index}
+                  data-time-type="goingOutTime"
+                  data-input-type="hours"
+                  onChange={onHollowChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={hollow.goingOutTimeMinutesName}
                   value={hollow.goingOutTimeMinutesValue}
-                  onChange={onHollowChangeTime(index, 'goingOutTime', 'minutes')}
+                  data-target-index={index}
+                  data-time-type="goingOutTime"
+                  data-input-type="minutes"
+                  onChange={onHollowChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={hollow.goingOutTimeCalcName} value={hollow.goingOutTimeCalcValue} />
@@ -167,14 +227,20 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
                 <TwoDigitsInput
                   name={hollow.returnTimeHoursName}
                   value={hollow.returnTimeHoursValue}
-                  onChange={onHollowChangeTime(index, 'returnTime', 'hours')}
+                  data-target-index={index}
+                  data-time-type="returnTime"
+                  data-input-type="hours"
+                  onChange={onHollowChangeTime}
                   onBlur={onCheckState}
                 />
-                ：
+                <Coron />
                 <TwoDigitsInput
                   name={hollow.returnTimeMinutesName}
                   value={hollow.returnTimeMinutesValue}
-                  onChange={onHollowChangeTime(index, 'returnTime', 'minutes')}
+                  data-target-index={index}
+                  data-time-type="returnTime"
+                  data-input-type="minutes"
+                  onChange={onHollowChangeTime}
                   onBlur={onCheckState}
                 />
                 <InputTypeHidden name={hollow.returnTimeCalcName} value={hollow.returnTimeCalcValue} />
@@ -201,7 +267,14 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
               </Td>
               {/*種別*/}
               <Td>
-                <select name={kinds.selectedName} value={kinds.selectedValue}>
+                <select
+                  name={kinds.selectedName}
+                  value={kinds.selectedValue}
+                  data-target-index={index}
+                  data-selector-type="kinds"
+                  onChange={onChangeSelector}
+                  onBlur={onCheckState}
+                >
                   {kindsOptions.map(({ text, value }) => {
                     return (
                       <option key={`${text}-${value}`} value={value}>
@@ -215,7 +288,14 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
               </Td>
               {/*事由*/}
               <Td>
-                <select name={reason.selectedName} value={reason.selectedValue}>
+                <select
+                  name={reason.selectedName}
+                  value={reason.selectedValue}
+                  data-target-index={index}
+                  data-selector-type="reason"
+                  onChange={onChangeSelector}
+                  onBlur={onCheckState}
+                >
                   {reasonOptions.map(({ text, value }) => {
                     return (
                       <option key={`${text}-${value}`} value={value}>
@@ -242,7 +322,14 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
               </Td>
               {/*勤務形態*/}
               <Td>
-                <select name={workStyle.selectedName} value={workStyle.selectedValue}>
+                <select
+                  name={workStyle.selectedName}
+                  value={workStyle.selectedValue}
+                  data-target-index={index}
+                  data-selector-type="workStyle"
+                  onChange={onChangeSelector}
+                  onBlur={onCheckState}
+                >
                   <option value="0"> - -</option>
                   <option value="1">出社</option>
                   <option value="2">在宅</option>
@@ -252,7 +339,12 @@ export const TableBody: VFC<TableBodyProps> = ({ bodyData, setTimeCardState }) =
               </Td>
               {/*備考*/}
               <Td>
-                <input name={remarks.remarksName} value={remarks.remarksValue} />
+                <input
+                  name={remarks.remarksName}
+                  value={remarks.remarksValue}
+                  data-target-index={index}
+                  onChange={onChangeText}
+                />
                 <InputTypeHidden name={remarks.combinationErrorName} value={remarks.combinationErrorValue} />
               </Td>
             </Tr>

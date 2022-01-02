@@ -37,25 +37,25 @@ export const getWorkTimes: GetWorkTimes = (tds, startIndex, endIndex) => {
   return {
     // 出社時刻
     timeOfArrivalHoursName: timeOfArrival[0]?.name || '',
-    timeOfArrivalHoursValue: timeOfArrival[0]?.value || '',
+    timeOfArrivalHoursValue: timeOfArrival[0]?.value || '0',
     timeOfArrivalMinutesName: timeOfArrival[1]?.name || '',
-    timeOfArrivalMinutesValue: timeOfArrival[1]?.value || '',
+    timeOfArrivalMinutesValue: timeOfArrival[1]?.value || '0',
     timeOfArrivalCalcName: timeOfArrival[2]?.name || '',
-    timeOfArrivalCalcValue: timeOfArrival[2]?.value || '',
+    timeOfArrivalCalcValue: timeOfArrival[2]?.value || '0',
     // 退社時刻
     leaveTimeHoursName: leaveTime[0]?.name || '',
-    leaveTimeHoursValue: leaveTime[0]?.value || '',
+    leaveTimeHoursValue: leaveTime[0]?.value || '0',
     leaveTimeMinutesName: leaveTime[1]?.name || '',
-    leaveTimeMinutesValue: leaveTime[1]?.value || '',
+    leaveTimeMinutesValue: leaveTime[1]?.value || '0',
     leaveTimeCalcName: leaveTime[2]?.name || '',
-    leaveTimeCalcValue: leaveTime[2]?.value || '',
+    leaveTimeCalcValue: leaveTime[2]?.value || '0',
     // 休憩時刻
     breakTimeHoursName: breakTime[0]?.name || '',
-    breakTimeHoursValue: breakTime[0]?.value || '',
+    breakTimeHoursValue: breakTime[0]?.value || '0',
     breakTimeMinutesName: breakTime[1]?.name || '',
-    breakTimeMinutesValue: breakTime[1]?.value || '',
+    breakTimeMinutesValue: breakTime[1]?.value || '0',
     breakTimeCalcName: breakTime[2]?.name || '',
-    breakTimeCalcValue: breakTime[2]?.value || '',
+    breakTimeCalcValue: breakTime[2]?.value || '0',
   }
 }
 
@@ -91,19 +91,19 @@ export const getHollowTime: GetHollowTime = (tds, startIndex, endIndex) => {
   return {
     // 外出時刻
     goingOutTimeHoursName: goingOutTime[0]?.name || '',
-    goingOutTimeHoursValue: goingOutTime[0]?.value || '',
+    goingOutTimeHoursValue: goingOutTime[0]?.value || '0',
     goingOutTimeMinutesName: goingOutTime[1]?.name || '',
-    goingOutTimeMinutesValue: goingOutTime[1]?.value || '',
+    goingOutTimeMinutesValue: goingOutTime[1]?.value || '0',
     goingOutTimeCalcName: goingOutTime[2]?.name || '',
-    goingOutTimeCalcValue: goingOutTime[3]?.value || '',
+    goingOutTimeCalcValue: goingOutTime[3]?.value || '0',
     // 戻り時刻
     returnTimeHoursName: returnTime[0]?.name || '',
-    returnTimeHoursValue: returnTime[0]?.value || '',
+    returnTimeHoursValue: returnTime[0]?.value || '0',
     returnTimeMinutesName: returnTime[1]?.name || '',
-    returnTimeMinutesValue: returnTime[1]?.value || '',
+    returnTimeMinutesValue: returnTime[1]?.value || '0',
     returnTimeCalcName: returnTime[2]?.name || '',
-    returnTimeCalcValue: returnTime[2]?.value || '',
+    returnTimeCalcValue: returnTime[2]?.value || '0',
     returnTimeErrorName: returnTime[3]?.name || '',
-    returnTimeErrorValue: returnTime[3]?.value || '',
+    returnTimeErrorValue: returnTime[3]?.value || '0',
   }
 }

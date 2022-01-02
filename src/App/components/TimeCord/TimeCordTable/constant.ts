@@ -1,10 +1,3 @@
-export const trColor = {
-  weekday: '#fff',
-  saturday: '#B4DCFF',
-  sunday: '#F5C8C8',
-  holiday: '#F5C8C8',
-}
-
 export const kindsOptions = [
   { value: '0', text: '- -' },
   { value: '4', text: '振替休' },

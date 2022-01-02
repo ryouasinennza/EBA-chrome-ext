@@ -3,26 +3,41 @@ import { VFC } from 'react'
 import { TimeCordTable, TimeCordTableProps } from './TimeCordTable'
 import { ActionBox, ActionBoxProps } from './ActionBox'
 import { BasicTimeBox, BasicTimeBoxProps } from './BasicTimeBox'
+import { TotalDaysTable, TotalDaysTableProps } from './TotalDaysTable'
+import { TotalTimesTable, TotalTimesTableProps } from './TotalTimesTable'
 
 type TimeCordProps = {
   onSubmit: (e) => void
 } & TimeCordTableProps &
   ActionBoxProps &
-  BasicTimeBoxProps
+  BasicTimeBoxProps &
+  TotalDaysTableProps &
+  TotalTimesTableProps
 
 export const TimeCord: VFC<TimeCordProps> = ({
   basicTime,
   bodyData,
+  changeBasicTime,
   changeDate,
+  checkBasicTimeHours,
+  checkBasicTimeMinutes,
   clickCustomerMode,
+  customData,
   date,
   memberNo,
+  onChangeSelector,
+  onChangeText,
+  onChangeTime,
+  onCheckState,
+  onHollowChangeTime,
   onSubmit,
+  setBasicTime,
+  totalDaysData,
+  totalTimesData,
   uniqueId,
-  setTimeCardState,
 }) => {
   return (
-    <TimeCordBox method="post" onSubmit={onSubmit}>
+    <TimeCordBox method="post" action="/time_card" onSubmit={onSubmit}>
       <ActionBox
         changeDate={changeDate}
         clickCustomerMode={clickCustomerMode}
@@ -30,8 +45,23 @@ export const TimeCord: VFC<TimeCordProps> = ({
         memberNo={memberNo}
         uniqueId={uniqueId}
       />
-      <BasicTimeBox basicTime={basicTime} setTimeCardState={setTimeCardState} />
-      <TimeCordTable bodyData={bodyData} setTimeCardState={setTimeCardState} />
+      <BasicTimeBox
+        basicTime={basicTime}
+        changeBasicTime={changeBasicTime}
+        checkBasicTimeHours={checkBasicTimeHours}
+        checkBasicTimeMinutes={checkBasicTimeMinutes}
+        setBasicTime={setBasicTime}
+      />
+      <TimeCordTable
+        bodyData={bodyData}
+        onChangeTime={onChangeTime}
+        onHollowChangeTime={onHollowChangeTime}
+        onCheckState={onCheckState}
+        onChangeSelector={onChangeSelector}
+        onChangeText={onChangeText}
+      />
+      <TotalDaysTable totalDaysData={totalDaysData} />
+      <TotalTimesTable totalTimesData={totalTimesData} customData={customData} />
     </TimeCordBox>
   )
 }
@@ -39,9 +69,11 @@ export const TimeCord: VFC<TimeCordProps> = ({
 const TimeCordBox = styled('form')`
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  border: 1px solid black;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 8px;
   margin: 8px;
   overflow-y: auto;
+  background-color: ${({ theme }) => theme.primaryBGColor};
+  color: ${({ theme }) => theme.textColor};
 `

@@ -1,8 +1,8 @@
-import { Tr, Th } from '../../../common'
+import { Th, NonHoverTr, Thead } from '../../../common'
 export const TableHeader = () => {
   return (
-    <thead>
-      <Tr>
+    <Thead>
+      <NonHoverTr>
         <Th rowSpan={2}>日付</Th>
         <Th colSpan={3}>客先勤務</Th>
         <Th colSpan={3}>本社勤務</Th>
@@ -17,8 +17,8 @@ export const TableHeader = () => {
         </Th>
         <Th rowSpan={2}>勤務形態</Th>
         <Th rowSpan={2}>備考</Th>
-      </Tr>
-      <Tr>
+      </NonHoverTr>
+      <NonHoverTr>
         <Th>出社時刻</Th>
         <Th>退社時刻</Th>
         <Th>休憩時刻</Th>
@@ -29,7 +29,7 @@ export const TableHeader = () => {
         <Th>戻り時刻</Th>
         <Th>客先</Th>
         <Th>本社</Th>
-      </Tr>
-    </thead>
+      </NonHoverTr>
+    </Thead>
   )
 }

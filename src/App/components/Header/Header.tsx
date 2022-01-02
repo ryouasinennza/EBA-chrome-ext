@@ -50,15 +50,17 @@ export const Header: VFC<HeaderProps> = ({ name, belongs, memberNo, headerLinks,
 }
 
 const HeaderBox = styled('header')`
+  background-color: ${({ theme }) => theme.primaryBGColor};
   display: flex;
-  border-radius: 4px;
-  border: 1px solid black;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 8px;
   margin: 8px;
 `
 
 const UserData = styled('div')`
   padding-right: 24px;
+  color: ${({ theme }) => theme.textColor};
 `
 
 const UlWrap = styled('div')`

@@ -12,6 +12,9 @@ import {
   getTotalTime,
   getWorkStyle,
   getWorkTimes,
+  getTotalDaysData,
+  getTotalTimesData,
+  calcCustomData,
   AbsenceContact,
   BasicTime,
   Breakdown,
@@ -24,7 +27,10 @@ import {
   TotalTime,
   WorkStyle,
   WorkTimes,
-} from './util'
+  TotalDaysData,
+  TotalTimesData,
+  CustomData,
+} from '../util'
 
 export type BodyData = {
   days: Days
@@ -46,6 +52,9 @@ export type TimeCardState = {
   basicTime: BasicTime
   bodyData: BodyData
   date: string
+  totalDaysData: TotalDaysData
+  totalTimesData: TotalTimesData
+  customData: CustomData
 }
 
 type UseTimeCardState = () => [TimeCardState, Dispatch<SetStateAction<TimeCardState>>]
@@ -64,6 +73,36 @@ export const useTimeCardState: UseTimeCardState = () => {
     },
     bodyData: [],
     date: '',
+    totalDaysData: {
+      workingDays: '',
+      scheduledHoliday: '',
+      legalHoliday: '',
+      daysLate: '',
+      numberOfDaysToLeaveEarly: '',
+      paidHoliday: '',
+      alternativeVacation: '',
+      specialVacation: '',
+      absence: '',
+      otherHolidays: '',
+      deductionHolidays: '',
+    },
+    totalTimesData: {
+      overTimeNormalOvertime: '',
+      overTimeMidnightOvertime: '',
+      overTimeScheduledHoliday: '',
+      overTimeScheduledHolidayMidnight: '',
+      overTimeLegalHoliday: '',
+      overTimeLegalHolidayMidnight: '',
+      overTimeTotal: '',
+      actualWorkWeekdayTotal: '',
+      actualWorkScheduledHoliday: '',
+      actualWorkLegalHoliday: '',
+      actualWorkTotal: '',
+    },
+    customData: {
+      customerTotal: '',
+      headquartersTotal: '',
+    },
   })
 
   useEffect(() => {
@@ -93,6 +132,9 @@ export const useTimeCardState: UseTimeCardState = () => {
       basicTime: getBasicTime(),
       bodyData,
       date: date.value,
+      totalDaysData: getTotalDaysData(),
+      totalTimesData: getTotalTimesData(),
+      customData: calcCustomData(bodyData),
     })
   }, [])
   return [timeCardState, setTimeCardState]

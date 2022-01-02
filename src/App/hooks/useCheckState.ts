@@ -1,13 +1,15 @@
-import { minutesRound, numberRangeRegexp, sumTotalTime } from '../../util'
+import { calcOverTime, checkHollow, minutesRound, sumBreakdownTotal, sumTime, sumTotalTime } from '../util'
 import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from '../../../../hooks'
+import { TimeCardState } from './useTimeCardState'
 
 export const useCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
   return () => {
     setTimeCardState((prev) => {
       const newData = prev.bodyData.map((object) => {
         try {
-          const result = {
+          checkHollow(object.hollow.goingOutTimeCalcValue, object.hollow.returnTimeCalcValue)
+          const totalTime = sumTotalTime(object.customerWork, object.mainOfficeWork, object.hollow)
+          return {
             ...object,
             customerWork: {
               ...object.customerWork,
@@ -28,22 +30,19 @@ export const useCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCard
             },
             breakdown: {
               ...object.breakdown,
-              customerWorkTimeText: sumTotalTime(object.customerWork),
-              mainOfficeWorkTimeText: sumTotalTime(object.mainOfficeWork),
+              customerWorkTimeText: sumTime(object.customerWork),
+              mainOfficeWorkTimeText: sumTime(object.mainOfficeWork),
+            },
+            total: {
+              ...object.total,
+              text: totalTime,
             },
             error: false,
+            overTime: {
+              ...object.overTime,
+              text: calcOverTime(totalTime),
+            },
           }
-
-          const c1 = Number(
-            `${result.customerWork.timeOfArrivalHoursValue}${result.customerWork.timeOfArrivalMinutesValue}`
-          )
-          const c2 = Number(`${result.customerWork.leaveTimeHoursValue}${result.customerWork.leaveTimeMinutesValue}`)
-          if (c1 && c2) {
-            const res = numberRangeRegexp(String(c1), String(c2))
-            console.log('res', res)
-          }
-
-          return result
         } catch (e) {
           return {
             ...object,
@@ -51,9 +50,14 @@ export const useCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCard
           }
         }
       })
+
       return {
         ...prev,
         bodyData: newData,
+        customData: {
+          customerTotal: sumBreakdownTotal(newData, 'customerWorkTimeText'),
+          headquartersTotal: sumBreakdownTotal(newData, 'mainOfficeWorkTimeText'),
+        },
       }
     })
   }
