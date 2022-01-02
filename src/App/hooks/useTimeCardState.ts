@@ -40,6 +40,11 @@ export type TimeCardState = {
   totalDaysData: TotalDaysData
   totalTimesData: TotalTimesData
   customData: CustomData
+  displayMode: {
+    customerWork: boolean
+    mainOfficeWork: boolean
+    hollow: boolean
+  }
 }
 
 type UseTimeCardState = (timeCardProps: TimeCardState) => [TimeCardState, Dispatch<SetStateAction<TimeCardState>>]

@@ -19,6 +19,7 @@ import {
   getWorkStyle,
   getWorkTimes,
 } from './App/dataExtraction'
+import { toBoolean } from './App/util'
 
 const changeDisplayButton = document.createElement('button')
 changeDisplayButton.style.position = 'fixed'
@@ -80,6 +81,11 @@ window.onload = () => {
       totalDaysData: getTotalDaysData(),
       totalTimesData: getTotalTimesData(),
       customData: getCustomData(bodyData),
+      displayMode: {
+        customerWork: toBoolean(window.localStorage.getItem('eba-customerWork') || ''),
+        mainOfficeWork: toBoolean(window.localStorage.getItem('eba-mainOfficeWork') || ''),
+        hollow: toBoolean(window.localStorage.getItem('eba-hollow') || ''),
+      },
     }
 
     document.body.style.position = 'relative'

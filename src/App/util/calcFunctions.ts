@@ -121,3 +121,7 @@ export const sumBreakdownTotal = (bodyData: BodyData, type: 'customerWorkTimeTex
   }
   return '0'
 }
+
+export const toBoolean = (booleanStr: string): boolean => {
+  return booleanStr.toLowerCase() === 'true'
+}

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {
   TimeCardState,
   useChangeBasicTime,
+  useChangeDisplayMode,
   useChangeSelector,
   useChangeText,
   useChangeTime,
@@ -34,6 +35,7 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
   const checkBasicTimeHours = useCheckBasicTimeHours(setTimeCardState)
   const checkBasicTimeMinutes = useCheckBasicTimeMinutes(setTimeCardState)
   const setBasicTime = useSetBasicTime(setTimeCardState)
+  const changeDisplayMode = useChangeDisplayMode(setTimeCardState)
 
   const changeDate = (e) => {
     setTimeCardState((prev) => {
@@ -69,6 +71,7 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
           changeDate={changeDate}
           checkBasicTimeHours={checkBasicTimeHours}
           checkBasicTimeMinutes={checkBasicTimeMinutes}
+          changeDisplayMode={changeDisplayMode}
           clickCustomerMode={clickCustomerMode}
           onChangeSelector={onChangeSelector}
           onChangeText={onChangeText}

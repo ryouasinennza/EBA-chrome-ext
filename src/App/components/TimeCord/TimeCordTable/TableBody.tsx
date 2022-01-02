@@ -10,6 +10,11 @@ export type TableBodyProps = {
   onChangeSelector: (e) => void
   onChangeText: (e) => void
   bodyData: BodyData
+  displayMode: {
+    customerWork: boolean
+    mainOfficeWork: boolean
+    hollow: boolean
+  }
 }
 
 export const TableBody: VFC<TableBodyProps> = ({
@@ -19,6 +24,7 @@ export const TableBody: VFC<TableBodyProps> = ({
   onCheckState,
   onChangeSelector,
   onChangeText,
+  displayMode,
 }) => {
   return (
     <tbody>
@@ -49,7 +55,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 <InputTypeHidden value={days.value} name={days.name} />
               </Td>
               {/*客先*/}
-              <Td>
+              <Td isDisplayNone={!displayMode.customerWork}>
                 <TwoDigitsInput
                   name={customerWork.timeOfArrivalHoursName}
                   value={customerWork.timeOfArrivalHoursValue}
@@ -76,7 +82,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                   value={customerWork.timeOfArrivalCalcValue}
                 />
               </Td>
-              <Td>
+              <Td isDisplayNone={!displayMode.customerWork}>
                 <TwoDigitsInput
                   name={customerWork.leaveTimeHoursName}
                   value={customerWork.leaveTimeHoursValue}
@@ -100,7 +106,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 />
                 <InputTypeHidden name={customerWork.leaveTimeCalcName} value={customerWork.leaveTimeCalcValue} />
               </Td>
-              <Td>
+              <Td isDisplayNone={!displayMode.customerWork}>
                 <TwoDigitsInput
                   name={customerWork.breakTimeHoursName}
                   value={customerWork.breakTimeHoursValue}
@@ -125,7 +131,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 <InputTypeHidden name={customerWork.breakTimeCalcName} value={customerWork.breakTimeCalcValue} />
               </Td>
               {/*本社*/}
-              <Td>
+              <Td isDisplayNone={!displayMode.mainOfficeWork}>
                 <TwoDigitsInput
                   name={mainOfficeWork.timeOfArrivalHoursName}
                   value={mainOfficeWork.timeOfArrivalHoursValue}
@@ -152,7 +158,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                   value={mainOfficeWork.timeOfArrivalCalcValue}
                 />
               </Td>
-              <Td>
+              <Td isDisplayNone={!displayMode.mainOfficeWork}>
                 <TwoDigitsInput
                   name={mainOfficeWork.leaveTimeHoursName}
                   value={mainOfficeWork.leaveTimeHoursValue}
@@ -176,7 +182,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 />
                 <InputTypeHidden name={mainOfficeWork.leaveTimeCalcName} value={mainOfficeWork.leaveTimeCalcValue} />
               </Td>
-              <Td>
+              <Td isDisplayNone={!displayMode.mainOfficeWork}>
                 <TwoDigitsInput
                   name={mainOfficeWork.breakTimeHoursName}
                   value={mainOfficeWork.breakTimeHoursValue}
@@ -201,7 +207,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 <InputTypeHidden name={mainOfficeWork.breakTimeCalcName} value={mainOfficeWork.breakTimeCalcValue} />
               </Td>
               {/*中抜け*/}
-              <Td>
+              <Td isDisplayNone={!displayMode.hollow}>
                 <TwoDigitsInput
                   name={hollow.goingOutTimeHoursName}
                   value={hollow.goingOutTimeHoursValue}
@@ -223,7 +229,7 @@ export const TableBody: VFC<TableBodyProps> = ({
                 />
                 <InputTypeHidden name={hollow.goingOutTimeCalcName} value={hollow.goingOutTimeCalcValue} />
               </Td>
-              <Td>
+              <Td isDisplayNone={!displayMode.hollow}>
                 <TwoDigitsInput
                   name={hollow.returnTimeHoursName}
                   value={hollow.returnTimeHoursValue}

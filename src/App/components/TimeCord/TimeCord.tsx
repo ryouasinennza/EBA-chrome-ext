@@ -5,6 +5,7 @@ import { ActionBox, ActionBoxProps } from './ActionBox'
 import { BasicTimeBox, BasicTimeBoxProps } from './BasicTimeBox'
 import { TotalDaysTable, TotalDaysTableProps } from './TotalDaysTable'
 import { TotalTimesTable, TotalTimesTableProps } from './TotalTimesTable'
+import { ChangeDisplayMode, ChangeDisplayModeProps } from './ChangeDisplayMode'
 
 type TimeCordProps = {
   onSubmit: (e) => void
@@ -12,7 +13,8 @@ type TimeCordProps = {
   ActionBoxProps &
   BasicTimeBoxProps &
   TotalDaysTableProps &
-  TotalTimesTableProps
+  TotalTimesTableProps &
+  ChangeDisplayModeProps
 
 export const TimeCord: VFC<TimeCordProps> = ({
   basicTime,
@@ -21,6 +23,7 @@ export const TimeCord: VFC<TimeCordProps> = ({
   changeDate,
   checkBasicTimeHours,
   checkBasicTimeMinutes,
+  changeDisplayMode,
   clickCustomerMode,
   customData,
   date,
@@ -35,6 +38,7 @@ export const TimeCord: VFC<TimeCordProps> = ({
   totalDaysData,
   totalTimesData,
   uniqueId,
+  displayMode,
 }) => {
   return (
     <TimeCordBox method="post" action="/time_card" onSubmit={onSubmit}>
@@ -52,8 +56,10 @@ export const TimeCord: VFC<TimeCordProps> = ({
         checkBasicTimeMinutes={checkBasicTimeMinutes}
         setBasicTime={setBasicTime}
       />
+      <ChangeDisplayMode displayMode={displayMode} changeDisplayMode={changeDisplayMode} />
       <TimeCordTable
         bodyData={bodyData}
+        displayMode={displayMode}
         onChangeTime={onChangeTime}
         onHollowChangeTime={onHollowChangeTime}
         onCheckState={onCheckState}
