@@ -1,4 +1,4 @@
-- v16.13.0
+- node v16.13.0
 - npm ci
 - npm run build
 - chrome://extensions/
