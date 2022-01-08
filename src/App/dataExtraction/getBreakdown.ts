@@ -1,7 +1,9 @@
+import { Breakdown } from '../types/TimeCardTypes/BodyData/Breakdown'
+
 type BreakdownProperties = {
   name: string
-  value: string
   text: string
+  value: string
 }
 
 type GetBreakdownProperties = (tdElement: HTMLTableDataCellElement) => BreakdownProperties
@@ -10,19 +12,10 @@ const getBreakdownProperties: GetBreakdownProperties = (tdElement) => {
   const input = tdElement.querySelector('input')
   const div = tdElement.querySelector('div')
   return {
-    name: input.name,
-    value: input.value,
-    text: div.textContent,
+    name: input?.name || '',
+    text: div?.textContent || '',
+    value: input?.value || '',
   }
-}
-
-export type Breakdown = {
-  customerWorkTimeName: string
-  customerWorkTimeValue: string
-  customerWorkTimeText: string
-  mainOfficeWorkTimeName: string
-  mainOfficeWorkTimeValue: string
-  mainOfficeWorkTimeText: string
 }
 
 type GetBreakdown = (tds: HTMLTableDataCellElement[]) => Breakdown
@@ -34,10 +27,10 @@ export const getBreakdown: GetBreakdown = (tds) => {
   const mainOfficeWorkTime = getBreakdownProperties(tds[mainOfficeWorkIndex])
   return {
     customerWorkTimeName: customerWorkTime.name,
-    customerWorkTimeValue: customerWorkTime.value,
     customerWorkTimeText: customerWorkTime.text,
+    customerWorkTimeValue: customerWorkTime.value,
     mainOfficeWorkTimeName: mainOfficeWorkTime.name,
-    mainOfficeWorkTimeValue: mainOfficeWorkTime.value,
     mainOfficeWorkTimeText: mainOfficeWorkTime.text,
+    mainOfficeWorkTimeValue: mainOfficeWorkTime.value,
   }
 }

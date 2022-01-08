@@ -1,9 +1,4 @@
-export type Remarks = {
-  remarksName: string
-  remarksValue: string
-  combinationErrorName: string
-  combinationErrorValue: string
-}
+import { Remarks } from '../types/TimeCardTypes/BodyData/Remarks'
 
 type GetRemarks = (tds: HTMLTableDataCellElement[]) => Remarks
 
@@ -15,9 +10,9 @@ export const getRemarks: GetRemarks = (tds) => {
   const td = tds[remarksIndex]
   const inputs = td.querySelectorAll('input')
   return {
-    remarksName: inputs[remarksInputIndex].name,
-    remarksValue: inputs[remarksInputIndex].value,
     combinationErrorName: inputs[combinationErrorIndex].name,
     combinationErrorValue: inputs[combinationErrorIndex].value,
+    remarksName: inputs[remarksInputIndex].name,
+    remarksValue: inputs[remarksInputIndex].value,
   }
 }

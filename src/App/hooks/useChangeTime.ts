@@ -1,20 +1,39 @@
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 import { timeCalc } from '../util'
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
 
-export const useChangeTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+interface UseChangeTimeHTMLInputElement extends HTMLInputElement {
+  dataset: {
+    inputType: string
+    propName: 'customerWork'
+    targetIndex: string
+    timeType: 'breakTime' | 'leaveTime' | 'timeOfArrival'
+  }
+}
+
+type UseChangeTime = (
+  setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>
+) => (e: BaseSyntheticEvent<object, HTMLInputElement, UseChangeTimeHTMLInputElement>) => void
+
+export const useChangeTime: UseChangeTime = (setTimeCardState) => {
   return ({
     target: {
-      value,
       dataset: { targetIndex, inputType, timeType, propName },
+      value,
     },
   }) => {
     setTimeCardState((prev) => {
       const newData = prev.bodyData.map((object, index) => {
         if (Number(targetIndex) === index) {
           const hoursOrMinutes = inputType === 'hours'
-          const hoursValueName = `${timeType}HoursValue`
-          const minutesValueName = `${timeType}MinutesValue`
+          const hoursValueName:
+            | 'breakTimeHoursValue'
+            | 'leaveTimeHoursValue'
+            | 'timeOfArrivalHoursValue' = `${timeType}HoursValue`
+          const minutesValueName:
+            | 'breakTimeMinutesValue'
+            | 'leaveTimeMinutesValue'
+            | 'timeOfArrivalMinutesValue' = `${timeType}MinutesValue`
           const calcValueName = `${timeType}CalcValue`
           const hoursValue = hoursOrMinutes ? value : object[propName][hoursValueName]
           const minutesValue = !hoursOrMinutes ? value : object[propName][minutesValueName]
@@ -23,9 +42,9 @@ export const useChangeTime = (setTimeCardState: Dispatch<SetStateAction<TimeCard
             ...object,
             [propName]: {
               ...object[propName],
+              [calcValueName]: calcValue,
               [hoursValueName]: hoursValue,
               [minutesValueName]: minutesValue,
-              [calcValueName]: calcValue,
             },
           }
         }

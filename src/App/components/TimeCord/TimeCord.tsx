@@ -1,14 +1,14 @@
+import { BaseSyntheticEvent, VFC } from 'react'
 import styled from 'styled-components'
-import { VFC } from 'react'
-import { TimeCordTable, TimeCordTableProps } from './TimeCordTable'
 import { ActionBox, ActionBoxProps } from './ActionBox'
 import { BasicTimeBox, BasicTimeBoxProps } from './BasicTimeBox'
+import { ChangeDisplayMode, ChangeDisplayModeProps } from './ChangeDisplayMode'
+import { TimeCordTable, TimeCordTableProps } from './TimeCordTable'
 import { TotalDaysTable, TotalDaysTableProps } from './TotalDaysTable'
 import { TotalTimesTable, TotalTimesTableProps } from './TotalTimesTable'
-import { ChangeDisplayMode, ChangeDisplayModeProps } from './ChangeDisplayMode'
 
 type TimeCordProps = {
-  onSubmit: (e) => void
+  onSubmit: (e: BaseSyntheticEvent) => void
 } & TimeCordTableProps &
   ActionBoxProps &
   BasicTimeBoxProps &
@@ -75,11 +75,11 @@ export const TimeCord: VFC<TimeCordProps> = ({
 const TimeCordBox = styled('form')`
   display: flex;
   flex-direction: column;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 8px;
   margin: 8px;
   overflow-y: auto;
-  background-color: ${({ theme }) => theme.primaryBGColor};
   color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.primaryBGColor};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
 `

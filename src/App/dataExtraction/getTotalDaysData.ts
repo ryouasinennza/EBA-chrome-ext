@@ -1,16 +1,4 @@
-export type TotalDaysData = {
-  workingDays: string
-  scheduledHoliday: string
-  legalHoliday: string
-  daysLate: string
-  numberOfDaysToLeaveEarly: string
-  paidHoliday: string
-  alternativeVacation: string
-  specialVacation: string
-  absence: string
-  otherHolidays: string
-  deductionHolidays: string
-}
+import { TotalDaysData } from '../types/TimeCardTypes/TotalDaysData'
 
 type GetTotalDaysData = () => TotalDaysData
 
@@ -41,29 +29,29 @@ export const getTotalDaysData: GetTotalDaysData = () => {
   const tables = document.querySelectorAll('table')
   const tds = tables[2].querySelectorAll('td')
 
-  const workingDays = tds[workingDaysIndex]?.textContent.trim() || ''
-  const scheduledHoliday = tds[scheduledHolidayIndex]?.textContent.trim() || ''
-  const legalHoliday = tds[legalHolidayIndex]?.textContent.trim() || ''
-  const daysLate = tds[daysLateIndex]?.textContent.trim() || ''
-  const numberOfDaysToLeaveEarly = tds[numberOfDaysToLeaveEarlyIndex]?.textContent.trim() || ''
-  const paidHoliday = tds[paidHolidayIndex]?.textContent.trim() || ''
-  const alternativeVacation = tds[alternativeVacationIndex]?.textContent.trim() || ''
-  const specialVacation = tds[specialVacationIndex]?.textContent.trim() || ''
-  const absence = tds[absenceIndex]?.textContent.trim() || ''
-  const otherHolidays = tds[otherHolidaysIndex]?.textContent.trim() || ''
-  const deductionHolidays = tds[deductionHolidaysIndex]?.textContent.trim() || ''
+  const workingDays = tds[workingDaysIndex]?.textContent?.trim() || ''
+  const scheduledHoliday = tds[scheduledHolidayIndex]?.textContent?.trim() || ''
+  const legalHoliday = tds[legalHolidayIndex]?.textContent?.trim() || ''
+  const daysLate = tds[daysLateIndex]?.textContent?.trim() || ''
+  const numberOfDaysToLeaveEarly = tds[numberOfDaysToLeaveEarlyIndex]?.textContent?.trim() || ''
+  const paidHoliday = tds[paidHolidayIndex]?.textContent?.trim() || ''
+  const alternativeVacation = tds[alternativeVacationIndex]?.textContent?.trim() || ''
+  const specialVacation = tds[specialVacationIndex]?.textContent?.trim() || ''
+  const absence = tds[absenceIndex]?.textContent?.trim() || ''
+  const otherHolidays = tds[otherHolidaysIndex]?.textContent?.trim() || ''
+  const deductionHolidays = tds[deductionHolidaysIndex]?.textContent?.trim() || ''
 
   return {
-    workingDays,
-    scheduledHoliday,
-    legalHoliday,
-    daysLate,
-    numberOfDaysToLeaveEarly,
-    paidHoliday,
-    alternativeVacation,
-    specialVacation,
     absence,
-    otherHolidays,
+    alternativeVacation,
+    daysLate,
     deductionHolidays,
+    legalHoliday,
+    numberOfDaysToLeaveEarly,
+    otherHolidays,
+    paidHoliday,
+    scheduledHoliday,
+    specialVacation,
+    workingDays,
   }
 }

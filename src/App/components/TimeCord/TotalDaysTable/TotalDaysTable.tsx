@@ -1,20 +1,20 @@
+import { VFC } from 'react'
 import styled from 'styled-components'
 import { NonHoverTr, Td, Th, Thead } from '../../../common'
-import { VFC } from 'react'
 
 export type TotalDaysTableProps = {
   totalDaysData: {
-    workingDays: string
-    scheduledHoliday: string
-    legalHoliday: string
-    daysLate: string
-    numberOfDaysToLeaveEarly: string
-    paidHoliday: string
-    alternativeVacation: string
-    specialVacation: string
     absence: string
-    otherHolidays: string
+    alternativeVacation: string
+    daysLate: string
     deductionHolidays: string
+    legalHoliday: string
+    numberOfDaysToLeaveEarly: string
+    otherHolidays: string
+    paidHoliday: string
+    scheduledHoliday: string
+    specialVacation: string
+    workingDays: string
   }
 }
 
@@ -62,6 +62,6 @@ export const TotalDaysTable: VFC<TotalDaysTableProps> = ({ totalDaysData }) => {
 }
 
 const Table = styled('table')`
-  margin: 8px 0;
   min-width: 1340px;
+  margin: 8px 0;
 `

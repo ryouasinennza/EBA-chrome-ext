@@ -1,0 +1,37 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/errors", "plugin:import/typescript", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["sort-keys-fix", "typescript-sort-keys"],
+  "rules": {
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+    "sort-keys-fix/sort-keys-fix": "error",
+    "typescript-sort-keys/interface": ["error", "asc", { "natural": true }],
+    "typescript-sort-keys/string-enum": ["error", "asc", { "natural": true }],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index", "object", "type"],
+        "alphabetize": {
+          "order": "asc"
+        },
+        "newlines-between": "never"
+      }
+    ],
+    "import/no-cycle": "error",
+    "import/no-useless-path-segments": "error",
+    "no-console": "error",
+    "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-module-boundary-types": ["error"],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "{}": false
+        }
+      }
+    ]
+  }
+}

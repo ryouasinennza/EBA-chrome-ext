@@ -1,7 +1,9 @@
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 
-export const useChangeText = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+type UseChangeText = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => (e: BaseSyntheticEvent) => void
+
+export const useChangeText: UseChangeText = (setTimeCardState) => {
   return ({
     target: {
       value,

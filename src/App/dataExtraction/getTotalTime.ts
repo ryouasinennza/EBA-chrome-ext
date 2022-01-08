@@ -1,10 +1,4 @@
-export type TotalTime = {
-  text: string
-  startName: string
-  startValue: string
-  endName: string
-  endValue: string
-}
+import { TotalTime } from '../types/TimeCardTypes/BodyData/TotalTime'
 
 type GetTotalTime = (tds: HTMLTableDataCellElement[]) => TotalTime
 
@@ -18,10 +12,10 @@ export const getTotalTime: GetTotalTime = (tds) => {
   const inputs = td.querySelectorAll('input')
 
   return {
-    text: textDiv.textContent,
-    startName: inputs[startInputIndex].name,
-    startValue: inputs[startInputIndex].value,
     endName: inputs[endInputIndex].name,
     endValue: inputs[endInputIndex].value,
+    startName: inputs[startInputIndex].name,
+    startValue: inputs[startInputIndex].value,
+    text: textDiv?.textContent || '',
   }
 }

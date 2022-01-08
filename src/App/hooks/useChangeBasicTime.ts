@@ -1,8 +1,10 @@
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 
-export const useChangeBasicTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
-  return (e) => {
+type UseChangeBasicTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => (e: BaseSyntheticEvent) => void
+
+export const useChangeBasicTime: UseChangeBasicTime = (setTimeCardState) => {
+  return (e: BaseSyntheticEvent) => {
     setTimeCardState((prev) => {
       return {
         ...prev,

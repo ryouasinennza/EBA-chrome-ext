@@ -1,8 +1,8 @@
+import { BaseSyntheticEvent, VFC } from 'react'
 import styled from 'styled-components'
-import { VFC } from 'react'
 
 export type ActionBoxProps = {
-  changeDate: (e) => void
+  changeDate: (e: BaseSyntheticEvent) => void
   clickCustomerMode: () => void
   date: string
   memberNo: string
@@ -31,18 +31,19 @@ const Box = styled('div')`
 
 const ButtonBase = styled('button')`
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px;
   margin: 4px;
-  outline: none;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  border: 1px solid ${({ theme }) => theme.borderColor};
   color: ${({ theme }) => theme.buttonTextColor};
-  justify-content: center;
-  align-items: center;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  outline: none;
+
   &:hover {
     position: relative;
-    left: 1px;
     top: 1px;
+    left: 1px;
   }
 `
 

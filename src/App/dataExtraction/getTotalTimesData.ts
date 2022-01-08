@@ -1,16 +1,4 @@
-export type TotalTimesData = {
-  overTimeNormalOvertime: string
-  overTimeMidnightOvertime: string
-  overTimeScheduledHoliday: string
-  overTimeScheduledHolidayMidnight: string
-  overTimeLegalHoliday: string
-  overTimeLegalHolidayMidnight: string
-  overTimeTotal: string
-  actualWorkWeekdayTotal: string
-  actualWorkScheduledHoliday: string
-  actualWorkLegalHoliday: string
-  actualWorkTotal: string
-}
+import { TotalTimesData } from '../types/TimeCardTypes/TotalTimesData'
 
 type GetTotalTimesData = () => TotalTimesData
 
@@ -41,29 +29,29 @@ export const getTotalTimesData: GetTotalTimesData = () => {
   const tables = document.querySelectorAll('table')
   const tds = tables[3].querySelectorAll('td')
 
-  const overTimeNormalOvertime = tds[overTimeNormalOvertimeIndex]?.textContent.trim() || ''
-  const overTimeMidnightOvertime = tds[overTimeMidnightOvertimeIndex]?.textContent.trim() || ''
-  const overTimeScheduledHoliday = tds[overTimeScheduledHolidayIndex]?.textContent.trim() || ''
-  const overTimeScheduledHolidayMidnight = tds[overTimeScheduledHolidayMidnightIndex]?.textContent.trim() || ''
-  const overTimeLegalHoliday = tds[overTimeLegalHolidayIndex]?.textContent.trim() || ''
-  const overTimeLegalHolidayMidnight = tds[overTimeLegalHolidayMidnightIndex]?.textContent.trim() || ''
-  const overTimeTotal = tds[overTimeTotalIndex]?.textContent.trim() || ''
-  const actualWorkWeekdayTotal = tds[actualWorkWeekdayTotalIndex]?.textContent.trim() || ''
-  const actualWorkScheduledHoliday = tds[actualWorkScheduledHolidayIndex]?.textContent.trim() || ''
-  const actualWorkLegalHoliday = tds[actualWorkLegalHolidayIndex]?.textContent.trim() || ''
-  const actualWorkTotal = tds[actualWorkTotalIndex]?.textContent.trim() || ''
+  const overTimeNormalOvertime = tds[overTimeNormalOvertimeIndex]?.textContent?.trim() || ''
+  const overTimeMidnightOvertime = tds[overTimeMidnightOvertimeIndex]?.textContent?.trim() || ''
+  const overTimeScheduledHoliday = tds[overTimeScheduledHolidayIndex]?.textContent?.trim() || ''
+  const overTimeScheduledHolidayMidnight = tds[overTimeScheduledHolidayMidnightIndex]?.textContent?.trim() || ''
+  const overTimeLegalHoliday = tds[overTimeLegalHolidayIndex]?.textContent?.trim() || ''
+  const overTimeLegalHolidayMidnight = tds[overTimeLegalHolidayMidnightIndex]?.textContent?.trim() || ''
+  const overTimeTotal = tds[overTimeTotalIndex]?.textContent?.trim() || ''
+  const actualWorkWeekdayTotal = tds[actualWorkWeekdayTotalIndex]?.textContent?.trim() || ''
+  const actualWorkScheduledHoliday = tds[actualWorkScheduledHolidayIndex]?.textContent?.trim() || ''
+  const actualWorkLegalHoliday = tds[actualWorkLegalHolidayIndex]?.textContent?.trim() || ''
+  const actualWorkTotal = tds[actualWorkTotalIndex]?.textContent?.trim() || ''
 
   return {
-    overTimeNormalOvertime,
-    overTimeMidnightOvertime,
-    overTimeScheduledHoliday,
-    overTimeScheduledHolidayMidnight,
+    actualWorkLegalHoliday,
+    actualWorkScheduledHoliday,
+    actualWorkTotal,
+    actualWorkWeekdayTotal,
     overTimeLegalHoliday,
     overTimeLegalHolidayMidnight,
+    overTimeMidnightOvertime,
+    overTimeNormalOvertime,
+    overTimeScheduledHoliday,
+    overTimeScheduledHolidayMidnight,
     overTimeTotal,
-    actualWorkWeekdayTotal,
-    actualWorkScheduledHoliday,
-    actualWorkLegalHoliday,
-    actualWorkTotal,
   }
 }

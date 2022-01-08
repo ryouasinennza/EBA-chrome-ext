@@ -32,7 +32,10 @@ window.onload = () => {
   if (id) {
     const body = document.querySelector('body')
     const react = document.createElement('div')
-    const originalContent: HTMLDivElement = document.querySelector('body > .wrapper')
+    const originalContent = document.querySelector<HTMLDivElement>('body > .wrapper')
+    if (!originalContent || !body) {
+      return false
+    }
     originalContent.style.display = 'none'
     changeDisplayButton.addEventListener('click', () => {
       if (react.style.display === 'none') {
@@ -52,40 +55,43 @@ window.onload = () => {
       user: getUserData(),
     }
 
-    const date: HTMLInputElement = document.querySelector('input[name="time_card_year_month"]')
-    const tbody = document.querySelector('#time_card table.timecard_table > tbody')
-    const trElements: HTMLTableRowElement[] = Array.from(tbody.querySelectorAll('tr'))
+    const date = document.querySelector<HTMLInputElement>('input[name="time_card_year_month"]')
+    const tbody = document.querySelector<HTMLTableElement>('#time_card table.timecard_table > tbody')
+    if (!tbody || !date) {
+      return false
+    }
+    const trElements = Array.from(tbody.querySelectorAll<HTMLTableRowElement>('tr'))
     const bodyData = trElements.map((tr) => {
       const tds = Array.from(tr.querySelectorAll('td'))
       return {
-        days: getDays(tds),
-        customerWork: getWorkTimes(tds, 1, 4),
-        mainOfficeWork: getWorkTimes(tds, 4, 7),
-        hollow: getHollowTime(tds, 7, 9),
-        breakdown: getBreakdown(tds),
-        total: getTotalTime(tds),
-        overTime: getOverTime(tds),
-        kinds: getKinds(tds),
-        reason: getReason(tds),
         absenceContact: getAbsenceContact(tds),
-        workStyle: getWorkStyle(tds),
-        remarks: getRemarks(tds),
+        breakdown: getBreakdown(tds),
+        customerWork: getWorkTimes(tds, 1, 4),
+        days: getDays(tds),
         error: false,
+        hollow: getHollowTime(tds, 7, 9),
+        kinds: getKinds(tds),
+        mainOfficeWork: getWorkTimes(tds, 4, 7),
+        overTime: getOverTime(tds),
+        reason: getReason(tds),
+        remarks: getRemarks(tds),
+        total: getTotalTime(tds),
+        workStyle: getWorkStyle(tds),
       }
     })
 
     const timeCardProps = {
       basicTime: getBasicTime(),
       bodyData,
-      date: date.value,
-      totalDaysData: getTotalDaysData(),
-      totalTimesData: getTotalTimesData(),
       customData: getCustomData(bodyData),
+      date: date.value,
       displayMode: {
         customerWork: toBoolean(window.localStorage.getItem('eba-customerWork') || ''),
-        mainOfficeWork: toBoolean(window.localStorage.getItem('eba-mainOfficeWork') || ''),
         hollow: toBoolean(window.localStorage.getItem('eba-hollow') || ''),
+        mainOfficeWork: toBoolean(window.localStorage.getItem('eba-mainOfficeWork') || ''),
       },
+      totalDaysData: getTotalDaysData(),
+      totalTimesData: getTotalTimesData(),
     }
 
     document.body.style.position = 'relative'

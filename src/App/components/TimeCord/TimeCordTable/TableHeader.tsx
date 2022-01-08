@@ -1,11 +1,11 @@
-import { Th, NonHoverTr, Thead } from '../../../common'
 import { VFC } from 'react'
+import { NonHoverTr, Th, Thead } from '../../../common'
 
 type TableHeaderProps = {
   displayMode: {
     customerWork: boolean
-    mainOfficeWork: boolean
     hollow: boolean
+    mainOfficeWork: boolean
   }
 }
 

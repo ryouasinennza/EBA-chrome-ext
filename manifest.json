@@ -1,11 +1,11 @@
 {
   "name": "eba-ext",
   "description": "eba",
-  "version": "1.0",
+  "version": "1.2",
   "manifest_version": 3,
   "content_scripts": [
     {
-      "matches": ["http://eba-report.xyz/*", "https://eba-report.xyz/*"],
+      "matches": ["https://eba-report.xyz/time_card"],
       "js": ["main.js"]
     }
   ]

@@ -3,18 +3,18 @@ import styled from 'styled-components'
 
 export type HeaderProps = {
   headerLinks: {
-    text: string
     link: string
+    text: string
   }[]
   sidebarLinks: {
-    text: string
     link: string
+    text: string
   }[]
   user: {
-    name: string
     belongs: string
-    uniqueId: string
     memberNo: string
+    name: string
+    uniqueId: string
   }
 }
 
@@ -53,12 +53,12 @@ export const Header: VFC<HeaderProps> = ({ user, headerLinks, sidebarLinks }) =>
 }
 
 const HeaderBox = styled('header')`
-  background-color: ${({ theme }) => theme.primaryBGColor};
   display: flex;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 8px;
   margin: 8px;
+  background-color: ${({ theme }) => theme.primaryBGColor};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
 `
 
 const UserData = styled('div')`
@@ -69,15 +69,15 @@ const UserData = styled('div')`
 const UlWrap = styled('div')`
   height: 100px;
   max-height: 100px;
-  overflow-x: auto;
   padding-right: 24px;
+  overflow-x: auto;
 `
 const News = styled('ul')`
   display: flex;
   flex-direction: column;
-  list-style: none;
   padding: 0 12px 0 0;
   margin: 0;
+  list-style: none;
 
   li {
     margin-bottom: 4px;

@@ -1,8 +1,10 @@
-import { calcOverTime, checkHollow, minutesRound, sumBreakdownTotal, sumTime, sumTotalTime } from '../util'
 import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { TimeCardTypes } from '../types/TimeCardTypes'
+import { calcOverTime, checkHollow, minutesRound, sumBreakdownTotal, sumTime, sumTotalTime } from '../util'
 
-export const useCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+type UseCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => () => void
+
+export const useCheckState: UseCheckState = (setTimeCardState) => {
   return () => {
     setTimeCardState((prev) => {
       const newData = prev.bodyData.map((object) => {
@@ -11,36 +13,36 @@ export const useCheckState = (setTimeCardState: Dispatch<SetStateAction<TimeCard
           const totalTime = sumTotalTime(object.customerWork, object.mainOfficeWork, object.hollow)
           return {
             ...object,
-            customerWork: {
-              ...object.customerWork,
-              timeOfArrivalMinutesValue: minutesRound(object.customerWork.timeOfArrivalMinutesValue),
-              leaveTimeMinutesValue: minutesRound(object.customerWork.leaveTimeMinutesValue),
-              breakTimeMinutesValue: minutesRound(object.customerWork.breakTimeMinutesValue),
-            },
-            mainOfficeWork: {
-              ...object.mainOfficeWork,
-              timeOfArrivalMinutesValue: minutesRound(object.mainOfficeWork.timeOfArrivalMinutesValue),
-              leaveTimeMinutesValue: minutesRound(object.mainOfficeWork.leaveTimeMinutesValue),
-              breakTimeMinutesValue: minutesRound(object.mainOfficeWork.breakTimeMinutesValue),
-            },
-            hollow: {
-              ...object.hollow,
-              goingOutTimeMinutesValue: minutesRound(object.hollow.goingOutTimeMinutesValue),
-              returnTimeMinutesValue: minutesRound(object.hollow.returnTimeMinutesValue),
-            },
             breakdown: {
               ...object.breakdown,
               customerWorkTimeText: sumTime(object.customerWork),
               mainOfficeWorkTimeText: sumTime(object.mainOfficeWork),
             },
-            total: {
-              ...object.total,
-              text: totalTime,
+            customerWork: {
+              ...object.customerWork,
+              breakTimeMinutesValue: minutesRound(object.customerWork.breakTimeMinutesValue),
+              leaveTimeMinutesValue: minutesRound(object.customerWork.leaveTimeMinutesValue),
+              timeOfArrivalMinutesValue: minutesRound(object.customerWork.timeOfArrivalMinutesValue),
             },
             error: false,
+            hollow: {
+              ...object.hollow,
+              goingOutTimeMinutesValue: minutesRound(object.hollow.goingOutTimeMinutesValue),
+              returnTimeMinutesValue: minutesRound(object.hollow.returnTimeMinutesValue),
+            },
+            mainOfficeWork: {
+              ...object.mainOfficeWork,
+              breakTimeMinutesValue: minutesRound(object.mainOfficeWork.breakTimeMinutesValue),
+              leaveTimeMinutesValue: minutesRound(object.mainOfficeWork.leaveTimeMinutesValue),
+              timeOfArrivalMinutesValue: minutesRound(object.mainOfficeWork.timeOfArrivalMinutesValue),
+            },
             overTime: {
               ...object.overTime,
               text: calcOverTime(totalTime),
+            },
+            total: {
+              ...object.total,
+              text: totalTime,
             },
           }
         } catch (e) {

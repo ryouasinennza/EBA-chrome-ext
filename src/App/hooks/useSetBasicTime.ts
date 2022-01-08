@@ -1,9 +1,11 @@
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 import { timeCalc } from '../util'
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
 
-export const useSetBasicTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
-  return (e) => {
+type UseSetBasicTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => (e: BaseSyntheticEvent) => void
+
+export const useSetBasicTime: UseSetBasicTime = (setTimeCardState) => {
+  return (e: BaseSyntheticEvent) => {
     e.preventDefault()
 
     if (window.confirm('基本時刻をセットします')) {
@@ -18,24 +20,24 @@ export const useSetBasicTime = (setTimeCardState: Dispatch<SetStateAction<TimeCa
               ...object,
               customerWork: {
                 ...object.customerWork,
-                timeOfArrivalHoursValue: prev.basicTime.basicTimeStartHoursValue,
-                timeOfArrivalMinutesValue: prev.basicTime.basicTimeStartMinutesValue,
-                timeOfArrivalCalcValue: timeCalc(
-                  prev.basicTime.basicTimeStartHoursValue,
-                  prev.basicTime.basicTimeStartMinutesValue
-                ),
-                leaveTimeHoursValue: prev.basicTime.basicTimeEndHoursValue,
-                leaveTimeMinutesValue: prev.basicTime.basicTimeEndMinutesValue,
-                leaveTimeCalcValue: timeCalc(
-                  prev.basicTime.basicTimeEndHoursValue,
-                  prev.basicTime.basicTimeEndMinutesValue
-                ),
-                breakTimeHoursValue: prev.basicTime.basicTimeBreakHoursValue,
-                breakTimeMinutesValue: prev.basicTime.basicTimeBreakMinutesValue,
                 breakTimeCalcValue: timeCalc(
                   prev.basicTime.basicTimeBreakHoursValue,
                   prev.basicTime.basicTimeBreakMinutesValue
                 ),
+                breakTimeHoursValue: prev.basicTime.basicTimeBreakHoursValue,
+                breakTimeMinutesValue: prev.basicTime.basicTimeBreakMinutesValue,
+                leaveTimeCalcValue: timeCalc(
+                  prev.basicTime.basicTimeEndHoursValue,
+                  prev.basicTime.basicTimeEndMinutesValue
+                ),
+                leaveTimeHoursValue: prev.basicTime.basicTimeEndHoursValue,
+                leaveTimeMinutesValue: prev.basicTime.basicTimeEndMinutesValue,
+                timeOfArrivalCalcValue: timeCalc(
+                  prev.basicTime.basicTimeStartHoursValue,
+                  prev.basicTime.basicTimeStartMinutesValue
+                ),
+                timeOfArrivalHoursValue: prev.basicTime.basicTimeStartHoursValue,
+                timeOfArrivalMinutesValue: prev.basicTime.basicTimeStartMinutesValue,
               },
               workStyle: {
                 ...object.workStyle,

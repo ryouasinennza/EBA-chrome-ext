@@ -39,7 +39,7 @@ module.exports = {
   target: ['web', 'es5'],
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: './asset', to: './manifest.json' }],
+      patterns: [{ from: './manifest.json', to: './manifest.json' }],
     }),
   ],
 }

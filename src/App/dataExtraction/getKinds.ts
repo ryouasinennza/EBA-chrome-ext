@@ -1,11 +1,4 @@
-export type Kinds = {
-  selectedName: string
-  selectedValue: string
-  kindTypeErrorName: string
-  kindTypeErrorValue: string
-  paidTimeName: string
-  paidTimeValue: string
-}
+import { Kinds } from '../types/TimeCardTypes/BodyData/Kinds'
 
 type GetKinds = (tds: HTMLTableDataCellElement[]) => Kinds
 
@@ -15,16 +8,16 @@ const paidTimeIndex = 1
 
 export const getKinds: GetKinds = (tds) => {
   const td = tds[kindsIndex]
-  const select = td.querySelector('select')
-  const option: HTMLOptionElement = td.querySelector('select option[selected]')
-  const inputs = td.querySelectorAll('input')
+  const select = td.querySelector<HTMLSelectElement>('select')
+  const option = td.querySelector<HTMLOptionElement>('select option[selected]')
+  const inputs = td.querySelectorAll<HTMLInputElement>('input')
 
   return {
-    selectedName: select.name,
+    kindTypeErrorName: inputs[kindTypeErrorIndex]?.name || '',
+    kindTypeErrorValue: inputs[kindTypeErrorIndex]?.value || '',
+    paidTimeName: inputs[paidTimeIndex]?.name || '',
+    paidTimeValue: inputs[paidTimeIndex]?.value || '',
+    selectedName: select?.name || '',
     selectedValue: option ? option.value : '0',
-    kindTypeErrorName: inputs[kindTypeErrorIndex].name,
-    kindTypeErrorValue: inputs[kindTypeErrorIndex].value,
-    paidTimeName: inputs[paidTimeIndex].name,
-    paidTimeValue: inputs[paidTimeIndex].value,
   }
 }

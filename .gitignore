@@ -117,3 +117,9 @@ dist
 .pnp.*
 
 env.ts
+dist.crx
+dist.pem
+dist.zip
+
+# stylelint
+.stylelintcache
