@@ -1,24 +1,24 @@
-import { VFC } from 'react'
+import { BaseSyntheticEvent, VFC } from 'react'
 import styled from 'styled-components'
-import { Tr, Th, Td, TwoDigitsInput, Coron, Thead, NonHoverTr } from '../../../common'
+import { Coron, NonHoverTr, Td, Th, Thead, Tr, TwoDigitsInput } from '../../../common'
 
 type BasicTime = {
-  basicTimeStartHoursValue: string
-  basicTimeStartMinutesValue: string
-  basicTimeEndHoursValue: string
-  basicTimeEndMinutesValue: string
   basicTimeBreakHoursValue: string
   basicTimeBreakMinutesValue: string
-  workType: string
+  basicTimeEndHoursValue: string
+  basicTimeEndMinutesValue: string
+  basicTimeStartHoursValue: string
+  basicTimeStartMinutesValue: string
   error: boolean
+  workType: string
 }
 
 export type BasicTimeBoxProps = {
   basicTime: BasicTime
-  changeBasicTime: (e) => void
+  changeBasicTime: (e: BaseSyntheticEvent) => void
   checkBasicTimeHours: () => void
   checkBasicTimeMinutes: () => void
-  setBasicTime: (e) => void
+  setBasicTime: (e: BaseSyntheticEvent) => void
 }
 
 export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({
@@ -118,23 +118,24 @@ export const BasicTimeBox: VFC<BasicTimeBoxProps> = ({
 }
 const Table = styled('table')`
   color: ${({ theme }) => theme.textColor};
+
   & * {
     border-color: ${({ theme }) => theme.borderColor};
   }
 `
 
 const Box = styled('div')`
-  margin: 8px 0;
   display: flex;
+  margin: 8px 0;
 `
 
 const SetBasicTimeButton = styled('button')`
   margin: 0 8px;
-  background-color: ${({ theme }) => theme.setBasicTimeButtonBGColor};
   color: ${({ theme }) => theme.buttonTextColor};
-  outline: none;
+  background-color: ${({ theme }) => theme.setBasicTimeButtonBGColor};
   border: 1px solid ${({ theme }) => theme.borderColor};
   border-radius: ${({ theme }) => theme.borderRadius};
+  outline: none;
 `
 const Select = styled('select')`
   border-radius: ${({ theme }) => theme.borderRadius};

@@ -1,20 +1,20 @@
-import { VFC } from 'react'
-import { BodyData } from '../../../hooks'
-import { InputTypeHidden, Td, Tr, TwoDigitsInput, Coron } from '../../../common'
+import { BaseSyntheticEvent, VFC } from 'react'
+import { Coron, InputTypeHidden, Td, Tr, TwoDigitsInput } from '../../../common'
+import { BodyData } from './BodyDataTypes'
 import { kindsOptions, reasonOptions } from './constant'
 
 export type TableBodyProps = {
-  onChangeTime: (e) => void
-  onHollowChangeTime: (e) => void
-  onCheckState: () => void
-  onChangeSelector: (e) => void
-  onChangeText: (e) => void
   bodyData: BodyData
   displayMode: {
     customerWork: boolean
-    mainOfficeWork: boolean
     hollow: boolean
+    mainOfficeWork: boolean
   }
+  onChangeSelector: (e: BaseSyntheticEvent) => void
+  onChangeText: (e: BaseSyntheticEvent) => void
+  onChangeTime: (e: BaseSyntheticEvent) => void
+  onCheckState: () => void
+  onHollowChangeTime: (e: BaseSyntheticEvent) => void
 }
 
 export const TableBody: VFC<TableBodyProps> = ({

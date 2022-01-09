@@ -1,7 +1,18 @@
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 
-export const useChangeSelector = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+interface UseChangeSelectorHTMLSelectElement extends HTMLSelectElement {
+  dataset: {
+    selectorType: 'reason' | 'kinds' | 'absenceContact' | 'workStyle'
+    targetIndex: string
+  }
+}
+
+type UseChangeSelector = (
+  setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>
+) => (e: BaseSyntheticEvent<object, HTMLSelectElement, UseChangeSelectorHTMLSelectElement>) => void
+
+export const useChangeSelector: UseChangeSelector = (setTimeCardState) => {
   return ({
     target: {
       value,

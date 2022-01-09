@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import 'styled-components'
 
 export const theme = {
-  primaryBGColor: '#fff',
-  secondaryBGColor: '#cccccc',
-  hoverBGColor: '#cccccc',
-  displayButtonBGColor: 'orange',
-  saveButtonBGColor: 'green',
+  borderColor: '#717171',
+  borderRadius: '4px',
+  buttonTextColor: '#fff',
   customerButtonBGColor: 'blue',
+  displayButtonBGColor: 'orange',
+  hoverBGColor: '#cccccc',
+  primaryBGColor: '#fff',
+  saveButtonBGColor: 'green',
+  secondaryBGColor: '#cccccc',
   setBasicTimeButtonBGColor: 'red',
   textColor: '#000',
-  buttonTextColor: '#fff',
-  borderRadius: '4px',
-  borderColor: '#717171',
   trColor: {
     error: 'red',
-    weekday: 'transparent',
+    holiday: '#F5C8C8',
     saturday: '#B4DCFF',
     sunday: '#F5C8C8',
-    holiday: '#F5C8C8',
+    weekday: 'transparent',
   },
 } as const
 
@@ -26,5 +27,5 @@ export type TrColorProperty = 'error' | 'weekday' | 'saturday' | 'sunday' | 'hol
 type AppTheme = typeof theme
 
 declare module 'styled-components' {
-  interface DefaultTheme extends AppTheme {}
+  export interface DefaultTheme extends AppTheme {}
 }

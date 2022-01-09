@@ -1,17 +1,16 @@
-import { VFC } from 'react'
+import { BaseSyntheticEvent, VFC } from 'react'
 import styled from 'styled-components'
 
 export type ChangeDisplayModeProps = {
-  changeDisplayMode: (e) => void
+  changeDisplayMode: (e: BaseSyntheticEvent) => void
   displayMode: {
     customerWork: boolean
-    mainOfficeWork: boolean
     hollow: boolean
+    mainOfficeWork: boolean
   }
 }
 
 export const ChangeDisplayMode: VFC<ChangeDisplayModeProps> = ({ displayMode, changeDisplayMode }) => {
-  console.log(displayMode)
   return (
     <ChangeDisplayModeBox>
       <Button isDisabled={!displayMode.customerWork} data-display-mode="customerWork" onClick={changeDisplayMode}>
@@ -28,13 +27,13 @@ export const ChangeDisplayMode: VFC<ChangeDisplayModeProps> = ({ displayMode, ch
 }
 
 const ChangeDisplayModeBox = styled('div')`
-  justify-content: space-between;
   display: flex;
+  justify-content: space-between;
   width: 260px;
   margin: 8px 0;
 `
 
 const Button = styled('button')<{ isDisabled: boolean }>`
-  color: ${({ isDisabled }) => (isDisabled ? '#fff' : '#000')};
   width: 80px;
+  color: ${({ isDisabled }) => (isDisabled ? '#fff' : '#000')};
 `

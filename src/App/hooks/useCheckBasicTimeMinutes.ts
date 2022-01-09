@@ -1,8 +1,10 @@
-import { minutesRound } from '../util'
 import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { TimeCardTypes } from '../types/TimeCardTypes'
+import { minutesRound } from '../util'
 
-export const useCheckBasicTimeMinutes = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+type UseCheckBasicTimeMinutes = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => () => void
+
+export const useCheckBasicTimeMinutes: UseCheckBasicTimeMinutes = (setTimeCardState) => {
   return () => {
     setTimeCardState((prev) => {
       try {
@@ -10,9 +12,9 @@ export const useCheckBasicTimeMinutes = (setTimeCardState: Dispatch<SetStateActi
           ...prev,
           basicTime: {
             ...prev.basicTime,
-            basicTimeStartMinutesValue: minutesRound(prev.basicTime.basicTimeStartMinutesValue),
-            basicTimeEndMinutesValue: minutesRound(prev.basicTime.basicTimeEndMinutesValue),
             basicTimeBreakMinutesValue: minutesRound(prev.basicTime.basicTimeBreakMinutesValue),
+            basicTimeEndMinutesValue: minutesRound(prev.basicTime.basicTimeEndMinutesValue),
+            basicTimeStartMinutesValue: minutesRound(prev.basicTime.basicTimeStartMinutesValue),
             error: false,
           },
         }

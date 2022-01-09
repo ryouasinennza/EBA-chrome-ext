@@ -1,11 +1,4 @@
-type DayType = 'weekday' | 'saturday' | 'sunday' | 'holiday'
-
-export type Days = {
-  text: string
-  value: string
-  name: string
-  dayType: DayType
-}
+import { DayType, Days } from '../types/TimeCardTypes/BodyData/Days'
 
 type getDays = (tds: HTMLTableDataCellElement[]) => Days
 
@@ -25,14 +18,22 @@ const getDayType: GetDayType = (text) => {
 }
 
 export const getDays: getDays = (tds) => {
+  if (!tds.length) {
+    return {
+      dayType: 'weekday',
+      name: '',
+      text: '',
+      value: '',
+    }
+  }
   const td = tds[0]
   const input = td.querySelector('input')
-  const text = td.textContent.trim()
+  const text = td?.textContent?.trim() || ''
 
   return {
-    text,
-    value: input.value,
-    name: input.name,
     dayType: getDayType(text),
+    name: input?.name || '',
+    text,
+    value: input?.value || '',
   }
 }

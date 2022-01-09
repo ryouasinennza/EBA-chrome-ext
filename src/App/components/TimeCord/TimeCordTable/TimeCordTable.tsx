@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { TableHeader } from './TableHeader'
-import { TableBody, TableBodyProps } from './TableBody'
 import { VFC } from 'react'
+import styled from 'styled-components'
+import { TableBody, TableBodyProps } from './TableBody'
+import { TableHeader } from './TableHeader'
 
 export type TimeCordTableProps = TableBodyProps
 

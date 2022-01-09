@@ -1,5 +1,7 @@
+import { VFC } from 'react'
 import styled from 'styled-components'
-export const Coron = () => {
+
+export const Coron: VFC = () => {
   return <Span>:</Span>
 }
 

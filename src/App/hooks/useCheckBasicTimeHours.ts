@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 import { checkHours } from '../util'
 
-export const useCheckBasicTimeHours = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+type UseCheckBasicTimeHours = (setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>) => () => void
+
+export const useCheckBasicTimeHours: UseCheckBasicTimeHours = (setTimeCardState) => {
   return () => {
     setTimeCardState((prev) => {
       if (

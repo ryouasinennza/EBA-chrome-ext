@@ -1,10 +1,6 @@
-import { BodyData } from '../hooks'
+import { BodyData } from '../types/TimeCardTypes/BodyData'
+import { CustomData } from '../types/TimeCardTypes/CustomData'
 import { sumBreakdownTotal } from '../util'
-
-export type CustomData = {
-  customerTotal: string
-  headquartersTotal: string
-}
 
 type GetCustomData = (bodyData: BodyData) => CustomData
 

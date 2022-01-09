@@ -1,8 +1,8 @@
+import { BaseSyntheticEvent, VFC, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
-import { VFC } from 'react'
 import styled from 'styled-components'
+import { Header, HeaderProps, TimeCord } from './components'
 import {
-  TimeCardState,
   useChangeBasicTime,
   useChangeDisplayMode,
   useChangeSelector,
@@ -13,18 +13,17 @@ import {
   useCheckState,
   useHollowChangeTime,
   useSetBasicTime,
-  useTimeCardState,
 } from './hooks'
-import { Header, HeaderProps, TimeCord } from './components'
 import { theme } from './styles/theme'
+import { TimeCardTypes } from './types/TimeCardTypes'
 
 type AppProps = {
   headerProps: HeaderProps
-  timeCardProps: TimeCardState
+  timeCardProps: TimeCardTypes
 }
 
 export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
-  const [timeCardState, setTimeCardState] = useTimeCardState(timeCardProps)
+  const [timeCardState, setTimeCardState] = useState<TimeCardTypes>(timeCardProps)
 
   const onChangeTime = useChangeTime(setTimeCardState)
   const onHollowChangeTime = useHollowChangeTime(setTimeCardState)
@@ -37,7 +36,7 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
   const setBasicTime = useSetBasicTime(setTimeCardState)
   const changeDisplayMode = useChangeDisplayMode(setTimeCardState)
 
-  const changeDate = (e) => {
+  const changeDate = (e: BaseSyntheticEvent) => {
     setTimeCardState((prev) => {
       return {
         ...prev,
@@ -50,7 +49,7 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
     window.location.href = `submit_customer?member_no=${headerProps.user.memberNo}&amp;time_card_year_month=${timeCardState.date}`
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: BaseSyntheticEvent) => {
     if (timeCardState.bodyData.every(({ error }) => !error)) {
       if (window.confirm('変更を保存しますか？')) {
         return true
@@ -69,8 +68,8 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
         <TimeCord
           changeBasicTime={changeBasicTime}
           changeDate={changeDate}
-          checkBasicTimeHours={checkBasicTimeHours}
           checkBasicTimeMinutes={checkBasicTimeMinutes}
+          checkBasicTimeHours={checkBasicTimeHours}
           changeDisplayMode={changeDisplayMode}
           clickCustomerMode={clickCustomerMode}
           onChangeSelector={onChangeSelector}
@@ -89,9 +88,9 @@ export const App: VFC<AppProps> = ({ headerProps, timeCardProps }) => {
 }
 
 const Wrap = styled('div')`
-  background-color: rgb(209 209 209);
   position: absolute;
-  width: 100vw;
   top: 0;
   z-index: 10000;
+  width: 100vw;
+  background-color: rgb(209 209 209);
 `

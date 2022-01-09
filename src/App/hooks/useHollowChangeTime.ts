@@ -1,8 +1,19 @@
+import { BaseSyntheticEvent, Dispatch, SetStateAction } from 'react'
+import { TimeCardTypes } from '../types/TimeCardTypes'
 import { timeCalc } from '../util'
-import { Dispatch, SetStateAction } from 'react'
-import { TimeCardState } from './useTimeCardState'
+interface UseHollowChangeTimeHTMLInputElement extends HTMLInputElement {
+  dataset: {
+    inputType: string
+    targetIndex: string
+    timeType: 'goingOutTime' | 'returnTime'
+  }
+}
 
-export const useHollowChangeTime = (setTimeCardState: Dispatch<SetStateAction<TimeCardState>>) => {
+type UseHollowChangeTime = (
+  setTimeCardState: Dispatch<SetStateAction<TimeCardTypes>>
+) => (e: BaseSyntheticEvent<object, HTMLInputElement, UseHollowChangeTimeHTMLInputElement>) => void
+
+export const useHollowChangeTime: UseHollowChangeTime = (setTimeCardState) => {
   return ({
     target: {
       value,
@@ -13,8 +24,8 @@ export const useHollowChangeTime = (setTimeCardState: Dispatch<SetStateAction<Ti
       const newData = prev.bodyData.map((object, index) => {
         if (Number(targetIndex) === index) {
           const hoursOrMinutes = inputType === 'hours'
-          const hoursValueName = `${timeType}HoursValue`
-          const minutesValueName = `${timeType}MinutesValue`
+          const hoursValueName: 'goingOutTimeHoursValue' | 'returnTimeHoursValue' = `${timeType}HoursValue`
+          const minutesValueName: 'goingOutTimeMinutesValue' | 'returnTimeMinutesValue' = `${timeType}MinutesValue`
           const calcValueName = `${timeType}CalcValue`
           const hoursValue = hoursOrMinutes ? value : object.hollow[hoursValueName]
           const minutesValue = !hoursOrMinutes ? value : object.hollow[minutesValueName]
@@ -23,9 +34,9 @@ export const useHollowChangeTime = (setTimeCardState: Dispatch<SetStateAction<Ti
             ...object,
             hollow: {
               ...object.hollow,
+              [calcValueName]: calcValue,
               [hoursValueName]: hoursValue,
               [minutesValueName]: minutesValue,
-              [calcValueName]: calcValue,
             },
           }
         }

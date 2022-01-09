@@ -1,24 +1,24 @@
-import styled from 'styled-components'
-import { NonHoverTr, Td, Th, Thead, Tr } from '../../../common'
 import { VFC } from 'react'
+import styled from 'styled-components'
+import { NonHoverTr, Td, Th, Thead } from '../../../common'
 
 export type TotalTimesTableProps = {
-  totalTimesData: {
-    overTimeNormalOvertime: string
-    overTimeMidnightOvertime: string
-    overTimeScheduledHoliday: string
-    overTimeScheduledHolidayMidnight: string
-    overTimeLegalHoliday: string
-    overTimeLegalHolidayMidnight: string
-    overTimeTotal: string
-    actualWorkWeekdayTotal: string
-    actualWorkScheduledHoliday: string
-    actualWorkLegalHoliday: string
-    actualWorkTotal: string
-  }
   customData: {
     customerTotal: string
     headquartersTotal: string
+  }
+  totalTimesData: {
+    actualWorkLegalHoliday: string
+    actualWorkScheduledHoliday: string
+    actualWorkTotal: string
+    actualWorkWeekdayTotal: string
+    overTimeLegalHoliday: string
+    overTimeLegalHolidayMidnight: string
+    overTimeMidnightOvertime: string
+    overTimeNormalOvertime: string
+    overTimeScheduledHoliday: string
+    overTimeScheduledHolidayMidnight: string
+    overTimeTotal: string
   }
 }
 
@@ -68,6 +68,6 @@ export const TotalTimesTable: VFC<TotalTimesTableProps> = ({ customData, totalTi
 }
 
 const Table = styled('table')`
-  margin: 8px 0;
   min-width: 1340px;
+  margin: 8px 0;
 `
